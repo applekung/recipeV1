@@ -12,8 +12,6 @@ import ErrorBoundary from '../../components/error/ErrorBoundary'
 import LoadingSpinner from '../../components/common/LoadingSpinner'
 
 function RecipeSearchList() {
-  // const { keyword } = useParams<{ keyword: string }>()
-  const keyword = '피자'
   if (!keyword) {
     throw new Error('검색어를 입력해주세요')
   }
@@ -21,17 +19,22 @@ function RecipeSearchList() {
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
+  // const { keyword } = useParams<{ keyword: string }>()
+  const keyword = '피자'
 
-  useEffect(
-    () => () => {
-      setRecipes([])
-    },
-    [],
-  )
+  useEffect(() => {
+    if (!keyword) {
+      throw new Error('검색어를 입력해주세요')
+    }
+    setRecipes([])
+    setPage(1)
+  }, [keyword])
 
   const { data, isLoading, isError } = useQuery<ListBySearchAPIResponse>({
     queryKey: ['search', { keyword, items, page }],
     queryFn: fetchSearchRecipe,
+    enabled: !!keyword,
   })
 
   if (isError) {
@@ -45,14 +48,16 @@ function RecipeSearchList() {
   useEffect(() => {
     if (!isLoading && data && recipeList?.length) {
       setRecipes((prevRecipes) => [...prevRecipes, ...recipeList])
+      setIsLoadingMore(false)
     }
   }, [isLoading, data, recipeList])
 
   const intersectRef = useIntersect(
     async (entry, observer) => {
       observer.unobserve(entry.target)
-      if (!isLoading && recipeList?.length === items) {
+      if (!isLoading && !isLoadingMore && recipeList?.length === items) {
         setPage((prevPage) => prevPage + 1)
+        setIsLoadingMore(true)
       }
       observer.observe(entry.target)
     },
