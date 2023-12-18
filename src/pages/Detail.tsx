@@ -1,68 +1,85 @@
-import React from 'react'
-import { FaRegClock } from 'react-icons/fa6'
-import { IoIosPeople } from 'react-icons/io'
-import { TbStarsFilled } from 'react-icons/tb'
+import React, { ChangeEvent, useEffect } from 'react'
+import { useState } from 'react';
+import { dummyData , reviewModel } from '../../public/dummy'
+import DetailHeader from '../components/detail/DetailHeader';
+import DetailMainList from '../components/detail/DetailMainList'
+import DetailMainReview from '../components/detail/DetailMainReview'
 
 function Detail() {
+    const explaincontentList: string[] = dummyData.sequenceExplain;
+    const sequenceImgList: string[] = dummyData.sequenceImg;
+
+    const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
+
+    type ReviewModel = {
+      reviewId: string
+      recipeId: number
+      id: number
+      start: number
+      comment: string
+      time: string
+    }
+
+    const [inputValue , setInputValue] = useState<string>("");
+    const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
+
+    // console.log("comments", comments);
+    // console.log('review', filterdCommentList)
+
+    function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
+      setInputValue(e.target.value)
+    }
+
+    function addCommentsHandler(){
+      const previousCommentsList = [...comments]
+      const dummyUserComments: ReviewModel = {
+        reviewId: 'ceads',
+        recipeId: 0,
+        id: 1,
+        start: 4,
+        comment: inputValue,
+        time: '하하',
+      }
+      previousCommentsList.push(dummyUserComments)
+      setComments(previousCommentsList)
+      setInputValue('')
+    }
+
   return (
-    <div className="flex items-center justify-center bg-gray-200 min-w-[30rem]">
-      <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center">
-        <div className="w-2/5 p-6 min-w-[25rem]">
-          <img
-            className="w-full h-[30rem]"
-            src="../public/cake.jpeg"
-            alt=""
-          />
-        </div>
+    // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
+    // id 를 활용해 레시피와 댓글 가져오기
 
-        <div className="w-3/5 p-5">
-          <div className="flex justify-between">
-            <div className="text-2xl font-bold">
-              요리명 : 크리스마스 케이크
-            </div>
-            <div className="flex justify-center items-center">
-              <img className="w-[2rem]" src="../public/다운로드.png" alt="" />
-              <h4 className="p-2">10개</h4>
-            </div>
+    <div className="flex flex-col items-center justify-center bg-red-400 min-w-[480px]">
+      <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center min-w-[800px]">
+        <DetailHeader />
+        <DetailMainList
+          explaincontentList={explaincontentList}
+          sequenceImgList={sequenceImgList}
+        />
+        <DetailMainReview totalReview={comments} />
+
+        <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
+          <div className="w-[7rem] h-[7rem] flex flex-wrap items-center justify-center text-4xl border-solid border-2 border-black-800">
+            +
           </div>
-
-          <div className="flex items-center justify-around p-5">
-            <div className="flex items-center flex-col">
-              <div className="p-7 text-4xl text-slate-500">
-                <IoIosPeople style={{ height: 30 }} />
-              </div>
-              <p className="text-xs text-slate-500 font-bold">200인분</p>
-            </div>
-            <div className="flex items-center flex-col">
-              <div className="p-7 text-3xl text-slate-500">
-                <FaRegClock style={{ height: 30 }} />
-              </div>
-              <p className="text-xs text-slate-500 font-bold">20분</p>
-            </div>
-            <div className="flex items-center flex-col">
-              <div className="p-7 text-3xl text-slate-500">
-                <TbStarsFilled style={{ height: 30 }} />
-              </div>
-              <p className="text-xs text-slate-500 font-bold">
-                초등학생도 가능
-              </p>
-            </div>
-          </div>
-
-          <div className="py-2">
-            <p className="text-1xl py-4 font-extrabold">
-              재료 및 분량 <span>(4인분)</span>
-            </p>
-            <div className="h-[14rem] bg-gray-100 p-7">
-              닭에게 계란을 뺴앗아간다... 눈가가 붉어지며 안된다고 소리치는 닭에게서 계란을 기어코 뻇어간다... 
-              그 계란을 풀고 미리 혼내준 버터에 넣는다... 또 거기에 설탕을 넣고 잘 녹인다. 미리 체쳐놓은 박력분
-              그걸또 반죽한다. 크흑 무자비한놈들... 
-            </div>
+          <div className="w-4/6 h-[7rem] flex items-center justify-center">
+            <input
+              value={inputValue}
+              onChange={getInputValueHandler}
+              className="min-w-[35rem] h-[7rem] border-solid border-2 border-black-600"
+              placeholder="무엇이 궁금하신가요 댓글을 남겨주세요"
+            />
+            <button
+              onClick={addCommentsHandler}
+              className="border-solid w-[7rem] h-[7rem] border-2 border-black-600 p-6"
+            >
+              등록
+            </button>
           </div>
         </div>
+        {/*  */}
       </div>
     </div>
   )
 }
-
-export default Detail
+export default Detail;
