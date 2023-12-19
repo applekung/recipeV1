@@ -9,6 +9,7 @@ import Detail from './pages/Detail'
 import Login from './pages/user/Login'
 // import Signup from './pages/user/Signup'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 function App() {
   const queryClient = new QueryClient({
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="detail" element={<Detail />} />

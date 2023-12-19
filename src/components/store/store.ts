@@ -4,13 +4,16 @@ import { devtools, persist } from 'zustand/middleware'
 export interface LikedState {
   likedRecipes: string[]
   toggleLikedRecipe: (recipeId: string) => void
+  isLiked: (recipeId: string) => boolean
 }
 
 export const useStore = create<LikedState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         likedRecipes: [],
+        isLiked: (recipeId: string) =>
+          get().likedRecipes.includes(recipeId) ? true : false,
         toggleLikedRecipe: (recipeId: string) =>
           set((state) => ({
             likedRecipes: state.likedRecipes.includes(recipeId)
