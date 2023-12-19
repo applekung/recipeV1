@@ -6,6 +6,7 @@ import { GoComment } from 'react-icons/go'
 import { CiHeart } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa'
 import { useStore, LikedState } from '../../components/store/store'
+import toast from 'react-hot-toast'
 
 // 레시피 목록에 들어가는 카드 하나하나 -> 클릭시 상세페이지 이동
 interface IProps {
@@ -74,7 +75,7 @@ const RecipeItem = ({
           className={
             isLiked(id)
               ? 'w-7 h-7 mt-1 mr-3 text-primary'
-              : 'w-7 h-7 mt-1 mr-3 text-gray-300'
+              : 'w-7 h-7 mt-1 mr-3 text-lightgray'
           }
         />
       </button>

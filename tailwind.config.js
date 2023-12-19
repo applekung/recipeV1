@@ -4,6 +4,8 @@ export default {
     extend: {
       colors: {
         primary: '#B4244A',
+        lightgray: '#eee',
+        darkgray: '#222',
       },
       fontFamily: {
         sans: ['Noto Sans KR', 'sans-serif'],
