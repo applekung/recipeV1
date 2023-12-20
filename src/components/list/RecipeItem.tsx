@@ -7,6 +7,8 @@ import { CiHeart } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa'
 import { useStore, LikedState } from '../../components/store/store'
 import toast from 'react-hot-toast'
+import { useMutation } from '@tanstack/react-query'
+import fetchToggleLikes from '../../fetch/fetchToggleLikes'
 
 // 레시피 목록에 들어가는 카드 하나하나 -> 클릭시 상세페이지 이동
 interface IProps {
@@ -27,7 +29,23 @@ const RecipeItem = ({
   avgRating,
   reviewCnt,
 }: IProps) => {
-  const { likedRecipes, toggleLikedRecipe, isLiked }: LikedState = useStore()
+  const { toggleLikedRecipe, isLiked }: LikedState = useStore()
+
+  const { mutate } = useMutation({
+    mutationFn: () => fetchToggleLikes(id, isLiked(id)),
+    onMutate: () => {
+      toggleLikedRecipe(id)
+    },
+    onSuccess: () => {
+      isLiked(id)
+        ? toast.success('찜하기 추가 완료!')
+        : toast.success('찜하기 취소 완료!')
+    },
+    onError: () => {
+      toggleLikedRecipe(id)
+      toast.error('잠시 후 다시 시도해주세요')
+    },
+  })
 
   return (
     <div className="relative">
@@ -70,7 +88,8 @@ const RecipeItem = ({
       >
         <FaHeart
           onClick={() => {
-            toggleLikedRecipe(id)
+            // toggleLikedRecipe(id)
+            mutate(id)
           }}
           className={
             isLiked(id)
