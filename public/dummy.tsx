@@ -106,4 +106,35 @@ const reviewModel = [
   },
 ]
 
-export { dummyData , reviewModel };
+interface CategoryNode {
+  id: number
+  name: string
+  children?: CategoryNode[]
+}
+
+const dummyCategoriesData: CategoryNode[] = [
+  {
+    id: 1,
+    name: 'Ingredients',
+    children: [
+      { id: 1, name: 'Pork' },
+      { id: 2, name: 'Beef' },
+      { id: 3, name: 'Chicken' },
+      { id: 4, name: 'Vegetables' },
+      { id: 5, name: 'Fish' },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Situations',
+    children: [
+      { id: 1, name: 'Christmas Atmosphere' },
+      { id: 2, name: 'Birthday Celebration' },
+      { id: 3, name: 'Outdoor Picnic' },
+      { id: 4, name: 'Romantic Dinner' },
+    ],
+  },
+]
+
+
+export { dummyData, reviewModel, dummyCategoriesData }

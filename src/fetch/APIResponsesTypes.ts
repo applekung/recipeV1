@@ -5,6 +5,13 @@ export interface Recipe {
   id: string
 }
 
+// 좋아요한 레시피 임시
+export interface TempRecipe {
+  id: number
+  title: string
+  body: string
+  userId: number
+}
 // 레시피 목록의 카드UI에 들어갈 자료
 export interface RecipeCard {
   id: string

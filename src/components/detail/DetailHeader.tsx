@@ -8,7 +8,12 @@ function DetailHeader() {
   return (
     <div className="flex flex-wrap items-center justify-center min-w-[50rem]">
       <div className="w-2/5 p-6 min-w-[25rem]">
-        <img className="w-full h-[30rem]" src="../public/cake.jpeg" alt="" />
+        {/* 서버에서 이미지 받아오기 */}
+        <img
+          className="w-full h-[30rem]"
+          src="./src/assets/detail/cake.jpeg"
+          alt=""
+        />
       </div>
       <div className="w-3/5 p-8">
         <div className="w-full">
@@ -17,31 +22,35 @@ function DetailHeader() {
               요리명 : {dummyData.recipeName}
             </div>
             <div className="flex justify-center items-center p-2">
-              <img className="w-[2rem]" src="../public/다운로드.png" alt="" />
+              <img
+                className="w-[2rem]"
+                src="./src/assets/detail/다운로드.png"
+                alt=""
+              />
               <h4 className="p-1">{dummyData.Like}</h4>
             </div>
           </div>
 
           <div className="flex items-center justify-around p-1">
             <div className="flex items-center flex-col">
-              <div className="p-10 text-4xl text-slate-500 h-8">
-                <IoIosPeople />
+              <div className="p-7 text-4xl text-slate-500">
+                <IoIosPeople style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
                 {dummyData.portion}
               </p>
             </div>
             <div className="flex items-center flex-col">
-              <div className="p-10 text-3xl text-slate-500 h-7">
-                <FaRegClock />
+              <div className="p-7 text-3xl text-slate-500">
+                <FaRegClock style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
                 {dummyData.leadTime}
               </p>
             </div>
             <div className="flex items-center flex-col">
-              <div className="p-10 text-3xl text-slate-500 h-7">
-                <TbStarsFilled />
+              <div className="p-7 text-3xl text-slate-500">
+                <TbStarsFilled style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
                 {dummyData.level}
