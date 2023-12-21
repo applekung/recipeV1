@@ -1,8 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import NicknameEdit from './nicknameEdit';
 
-const handleSignup = (nickname: string) => {
-  console.log(`회원가입 요청 - 닉네임: ${nickname}`)
-  // 서버로 회원가입 요청
-}
-//아직 구현X
+const rootElement = document.getElementById('root');
+ReactDOM.render(<NicknameEdit />, rootElement);
