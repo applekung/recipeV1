@@ -3,8 +3,10 @@ import { ListBySearchAPIResponse } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
 
 const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
-  const { keyword, items, page } = queryKey[1]
+  const { keyword, category, items, page } = queryKey[1]
   console.log(page, '페이지받아 패치실행')
+  // console.log(category)
+  // console.log(items)
 
   try {
     const apiRes = await axios.get(
@@ -12,6 +14,7 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
     )
 
     console.log(apiRes)
+    console.log('apiRes')
     if (apiRes.status !== 200) {
       throw new Error('레시피 로드중 에러발생.')
     }

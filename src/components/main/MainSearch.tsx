@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 function MainSearch() {
   return (
     <div className="search flex flex-col items-center">
-      <div className="mt-14 mb-7 font-black text-5xl">FIND A RECIPE</div>
+      <div className="mt-14 mb-2 font-black text-5xl">FIND A RECIPE</div>
       <div className="mx-4 my-4 w-[40rem] h-10 p-1.5 rounded-full border border-solid space-between">
 
         <input
@@ -18,7 +18,7 @@ function MainSearch() {
           <button id="submit" aria-label="submit" className="">
             <img
               src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-              className="w-4 top-2 right-3 m-0 ml-10 justify-end"
+              className="w-4 top-2 right-3 ml-10 justify-end"
             />
           </button>
         </Link>

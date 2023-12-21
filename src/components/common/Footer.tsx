@@ -5,8 +5,8 @@ function Footer() {
         <div>
           <link rel="stylesheet" href="src\components\common\navbar.css"></link>
             <footer className="bg-gray-100 text-black p-4">
-                <div className="container mx-auto">
-                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mx-48 mt-2">
+                <div className="container mx-auto  w-[64rem]">
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
                         {/* 로고 */}
                         <div className="col-span-2 lg:col-span-1">
                             <img src="./src/assets/common/logo.png" alt="로고" className="w-24 h-auto" />
@@ -28,7 +28,7 @@ function Footer() {
                             </div>
                             {/* 회사 정보 */}
                             <div className="mb-2 lg:col-span-5 lg:w-1/2 text-right">
-                                <p>(주)레시피헤븐 / 사업자등록번호 291-81-02485 / 통신판매업신고 2022-서울금천-3089 / 사업자정보</p>
+                                <p>(주)레시피헤븐 / 사업자등록번호 291-81-02485 / 통신판매업신고 2022-서울금천-3089</p>
                                 <p>서울지방중소기업청 제 031134233-1-01643호</p>
                                 <p>Copyright 레시피헤븐 Inc. All Rights Reserved</p>
                             </div>
