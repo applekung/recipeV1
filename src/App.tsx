@@ -7,7 +7,11 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
+<<<<<<< HEAD
+import Header from './components/common/Header'
+=======
 import UploadRecipe from './pages/UploadRecipe'
+>>>>>>> 0c8a170fbd1926ec804b3cda85d05e20b13f1c18
 // import Signup from './pages/user/Signup'
 import LikedRecipes from './pages/myPage/LikedRecipes'
 
