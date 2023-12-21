@@ -11,6 +11,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@iconify/icons-ic": "^1.2.13",
+    "@iconify/react": "^4.1.1",
     "@tanstack/react-query": "^5.13.4",
     "@tanstack/react-query-devtools": "^5.13.5",
     "axios": "^1.6.2",

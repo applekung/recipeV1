@@ -13,7 +13,7 @@ interface UserState {
   const useUserStore = create<UserState>((set) => ({
     userInfo: { username: '' },
     setUserInfo: (userInfo) => set({ userInfo }),
-    token: null,// 임의로 설정한 토큰 값
+    token: '100',// 임의로 설정한 토큰 값
     setToken: (token) => set({ token }),
 }));
   

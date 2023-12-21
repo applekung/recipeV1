@@ -10,6 +10,7 @@ import Login from './pages/user/Login'
 import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack';
 import Header from './components/common/Header'
+import CategoryMenagement from './pages/admin/CategoryMenagement'
 import UploadRecipe from './pages/UploadRecipe'
 // import Signup from './pages/user/Signup'
 import LikedRecipes from './pages/myPage/LikedRecipes'
@@ -41,11 +42,13 @@ function App() {
         <Route path="search" element={<RecipeSearchList />} />
         <Route path="category" element={<RecipeCategoryList />} />
         <Route path="login" element={<Login />} />
+        <Route path="admin_categoryMenagement" element={<CategoryMenagement />} />
         <Route path="/delete" element={<DeleteUser />} />
         <Route path="nickname" element={<NicknameEdit />} />
         <Route path="oauth" element={<Callback />} />
         <Route path="uploadrecipe" element={<UploadRecipe />} />
         {/* <Route path="signUp" element={<Signup />} /> */}
+
       </Routes>
       <Toaster
         position="top-center"

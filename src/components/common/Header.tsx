@@ -1,4 +1,3 @@
-//건우님 코드 백업
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { dummyCategoriesData } from '../../../public/dummy'
