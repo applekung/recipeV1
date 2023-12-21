@@ -70,7 +70,6 @@ const RecipeItem = ({
       >
         <FaHeart
           onClick={() => {
-            // toggleLikedRecipe(id)
             toggleRecipeLiked(id)
           }}
           className={

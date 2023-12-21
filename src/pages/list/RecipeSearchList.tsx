@@ -26,8 +26,8 @@ function RecipeSearchList() {
     if (!keyword) {
       throw new Error('검색어를 입력해주세요')
     }
-    setRecipes([]) // Clear previous recipes if any
-    setPage(1) // Reset page to 1 when keyword changes
+    setRecipes([])
+    setPage(1)
   }, [keyword])
 
   useEffect(
