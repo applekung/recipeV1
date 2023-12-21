@@ -4,31 +4,17 @@ import { useStore, LikedState } from '../../components/store/store'
 import LikedRecipeItem from '../../components/myPage/LikedRecipeItem'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { TbMinusVertical } from 'react-icons/tb'
-import { useMutation } from '@tanstack/react-query'
-import fetchDeleteLikes from '../../fetch/fetchDeletLikes'
-import toast from 'react-hot-toast'
-import RecipeItem from '../../components/list/RecipeItem'
+import { useDeleteLikesMutation } from '../../components/likes/useLikesMutation'
 
 const LikedRecipes = () => {
   const { likedRecipes }: LikedState = useStore()
   const [recipeList, setRecipeList] = useState<TempRecipe[]>([])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
-  const { toggleLikedRecipe, isLiked }: LikedState = useStore()
 
-  const { mutate, isLoading: isDeleting } = useMutation({
-    mutationFn: () => fetchDeleteLikes(checkedItems),
-    onMutate: () => {
-      checkedItems.map((id) => toggleLikedRecipe(id))
-    },
-    onSuccess: () => {
-      toast.success('찜하기 목록에서 삭제')
-      setCheckedItems([])
-    },
-    onError: () => {
-      toast.error('잠시 후 다시 시도해주세요')
-      checkedItems.map((id) => toggleLikedRecipe(id))
-    },
-  })
+  const { deleteRecipes, isDeleting } = useDeleteLikesMutation(
+    checkedItems,
+    setCheckedItems,
+  )
 
   useEffect(() => {
     const fetchLikedRecipes = async () => {
@@ -39,7 +25,7 @@ const LikedRecipes = () => {
     fetchLikedRecipes()
   }, [likedRecipes])
 
-  const handleSingleCheck = (checked, recipeId) => {
+  const handleSingleCheck = (checked, recipeId: string) => {
     setCheckedItems((prevCheckedItems) => {
       if (checked) {
         return [...prevCheckedItems, recipeId]
@@ -58,7 +44,7 @@ const LikedRecipes = () => {
   }
 
   const handelDelete = () => {
-    mutate()
+    deleteRecipes(checkedItems)
   }
 
   return (
@@ -76,12 +62,13 @@ const LikedRecipes = () => {
             전체선택
           </span>
           <TbMinusVertical className="text-gray-400 my-5 -ml-2 inline text-[1.5rem]" />
-          <span
-            onClick={() => handelDelete()}
+          <button
             className="text-gray-900 my-5 text-lg font-semibold cursor-pointer"
+            onClick={() => handelDelete()}
+            disabled={isDeleting}
           >
             선택삭제
-          </span>
+          </button>
         </div>
         <div className="grid w-full max-w-6xl grid-cols-1 gap-x-6">
           {recipeList.length ? (
@@ -94,7 +81,7 @@ const LikedRecipes = () => {
                     handleSingleCheck(e.target.checked, recipe.id)
                   }
                 />
-                <LikedRecipeItem recipe={recipe} isLikedPage={true} />
+                <LikedRecipeItem recipe={recipe} />
               </div>
             ))
           ) : (
