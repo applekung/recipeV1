@@ -5,6 +5,7 @@ import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+import AppLayout from './components/ui/AppLayout'
 import Main from './pages/Main'
 import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
@@ -34,20 +35,22 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/test" element={<LikedRecipes />} />
-        <Route path="/testComments" element={<MyComments />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/category" element={<RecipeCategoryList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="search" element={<RecipeSearchList />} />
-        <Route path="category" element={<RecipeCategoryList />} />
-        <Route path="login" element={<Login />} />
-        <Route path="/delete" element={<DeleteUser />} />
-        <Route path="nickname" element={<NicknameEdit />} />
-        <Route path="oauth" element={<Callback />} />
-        <Route path="uploadrecipe" element={<UploadRecipe />} />
-        {/* <Route path="signUp" element={<Signup />} /> */}
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/test" element={<LikedRecipes />} />
+          <Route path="/testComments" element={<MyComments />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/category" element={<RecipeCategoryList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="search" element={<RecipeSearchList />} />
+          <Route path="category" element={<RecipeCategoryList />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/delete" element={<DeleteUser />} />
+          <Route path="nickname" element={<NicknameEdit />} />
+          <Route path="oauth" element={<Callback />} />
+          <Route path="uploadrecipe" element={<UploadRecipe />} />
+          {/* <Route path="signUp" element={<Signup />} /> */}
+        </Route>
       </Routes>
       <Toaster
         position="top-center"

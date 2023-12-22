@@ -1,80 +1,78 @@
 import React, { ChangeEvent, useEffect } from 'react'
-import { useState } from 'react';
-import { dummyData , reviewModel } from '../../public/dummy'
-import DetailHeader from '../components/detail/DetailHeader';
+import { useState } from 'react'
+import { dummyData, reviewModel } from '../../public/dummy'
+import DetailHeader from '../components/detail/DetailHeader'
 import DetailMainList from '../components/detail/DetailMainList'
 import DetailMainReview from '../components/detail/DetailMainReview'
-import axios from 'axios';
+import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
 
 function Detail() {
-    const explaincontentList: string[] = dummyData.sequenceExplain;
-    const sequenceImgList: string[] = dummyData.sequenceImg;
+  const explaincontentList: string[] = dummyData.sequenceExplain
+  const sequenceImgList: string[] = dummyData.sequenceImg
 
-    const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
+  const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
 
-    type ReviewModel = {
-      reviewId: string
-      recipeId: number
-      id: number
-      start: number
-      comment: string
-      time: string
+  type ReviewModel = {
+    reviewId: string
+    recipeId: number
+    id: number
+    start: number
+    comment: string
+    time: string
+  }
+
+  const [inputValue, setInputValue] = useState<string>('')
+  const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
+
+  // 본인이 작성한 글이라 가정
+  const [myBlogContent, setMyBlogContent] = useState(true)
+
+  // console.log("comments", comments);
+  // console.log('review', filterdCommentList)
+
+  function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value)
+  }
+
+  function addCommentsHandler() {
+    const previousCommentsList = [...comments]
+    const dummyUserComments: ReviewModel = {
+      reviewId: 'ceads',
+      recipeId: 0,
+      id: 1,
+      start: 4,
+      comment: inputValue,
+      time: '하하',
     }
+    previousCommentsList.push(dummyUserComments)
+    setComments(previousCommentsList)
+    setInputValue('')
+  }
 
-    const [inputValue , setInputValue] = useState<string>("");
-    const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
+  const [showOptions, setShowOptions] = useState(false)
 
-    // 본인이 작성한 글이라 가정
-    const [myBlogContent, setMyBlogContent] = useState(true)
+  const handleMoreClick = () => {
+    setShowOptions(!showOptions)
+  }
 
+  const handleEditClick = () => {
+    // Handle the edit functionality
+    console.log('Edit clicked')
+  }
 
-    // console.log("comments", comments);
-    // console.log('review', filterdCommentList)
+  const handleDeleteClick = () => {
+    // Handle the delete functionality
+    console.log('Delete clicked')
+  }
 
-    function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
-      setInputValue(e.target.value)
-    }
+  async function getDetailData() {
+    const res = await axios.get('/recipe/:recipeId')
+  }
 
-    function addCommentsHandler(){
-      const previousCommentsList = [...comments]
-      const dummyUserComments: ReviewModel = {
-        reviewId: 'ceads',
-        recipeId: 0,
-        id: 1,
-        start: 4,
-        comment: inputValue,
-        time: '하하',
-      }
-      previousCommentsList.push(dummyUserComments)
-      setComments(previousCommentsList)
-      setInputValue('')
-    }
-
-      const [showOptions, setShowOptions] = useState(false)
-
-      const handleMoreClick = () => {
-        setShowOptions(!showOptions)
-      }
-
-      const handleEditClick = () => {
-        // Handle the edit functionality
-        console.log('Edit clicked')
-      }
-
-      const handleDeleteClick = () => {
-        // Handle the delete functionality
-        console.log('Delete clicked')
-      }
-
-
-    async function getDetailData() {
-      const res = await axios.get('/recipe/:recipeId')
-    }
-
-    useEffect(() => {
-      getDetailData();
-    },[])
+  useEffect(() => {
+    getDetailData()
+  }, [])
 
   return (
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
@@ -155,4 +153,4 @@ function Detail() {
     </div>
   )
 }
-export default Detail;
+export default Detail
