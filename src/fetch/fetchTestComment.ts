@@ -1,13 +1,12 @@
 import axios from 'axios'
-import { ListBySearchAPIResponse } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
 
-const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
+const fetchTestComment: QueryFunction<string> = async ({ queryKey }) => {
   const { keyword, category, items, page } = queryKey[1]
 
   try {
     const apiRes = await axios.get(
-      `https://jsonplaceholder.typicode.com/comments?_limit=${items}&_page=${page}`,
+      `https://jsonplaceholder.typicode.com/comments/1`,
     )
 
     if (apiRes.status !== 200) {
@@ -21,4 +20,4 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
   }
 }
 
-export default fetchTestGet
+export default fetchTestComment

@@ -20,8 +20,8 @@ const MypageCommentItem = ({ comment }: TempRecipe) => {
       />
 
       <div className="flex flex-col">
-        <div>{comment.comment}</div>
-        <div>{comment.title}</div>
+        <div>{comment.name}</div>
+        <div>글의제목{comment.postId}</div>
         <div>{formattedDate}</div>
       </div>
       <button
