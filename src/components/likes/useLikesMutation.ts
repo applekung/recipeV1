@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   fetchAddLike,
@@ -63,7 +62,6 @@ export const useToggleLikeMutation = (id: string) => {
   const { mutate: toggleRecipeLiked } = useMutation<void, Error, string>({
     mutationFn: () => (isLiked(id) ? fetchAddLike(id) : fetchDeleteLike(id)),
     onMutate: () => {
-      console.log(id)
       toggleLikedRecipe(id)
     },
     onSuccess: () => {

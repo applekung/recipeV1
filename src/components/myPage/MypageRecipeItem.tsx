@@ -1,10 +1,13 @@
 import React from 'react'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { useDeleteLikeMutation } from '../likes/useLikesMutation'
+import moment from 'moment'
 
-const LikedRecipeItem = ({ recipe }: TempRecipe) => {
+const MypageRecipeItem = ({ recipe }: TempRecipe) => {
   const { deleteRecipe, isDeleting } = useDeleteLikeMutation(recipe.id)
-
+  const recipeDate = new Date()
+  const momentDate = moment(recipeDate)
+  const formattedDate = momentDate.format('YYYY-MM-DD, h:mm')
   return (
     <div className="flex gap-3">
       <img
@@ -17,8 +20,8 @@ const LikedRecipeItem = ({ recipe }: TempRecipe) => {
 
       <div className="flex flex-col">
         <div>{recipe.title}</div>
-        <div>{recipe.userId}</div>
-        <div>{new Date().toString()}</div>
+        <div>유저아이디{recipe.userId}</div>
+        <div>{formattedDate}</div>
       </div>
       <button
         onClick={() => {
@@ -32,4 +35,4 @@ const LikedRecipeItem = ({ recipe }: TempRecipe) => {
   )
 }
 
-export default LikedRecipeItem
+export default MypageRecipeItem

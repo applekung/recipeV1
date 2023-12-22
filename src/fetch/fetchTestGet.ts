@@ -4,9 +4,6 @@ import { QueryFunction } from '@tanstack/react-query'
 
 const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
   const { keyword, category, items, page } = queryKey[1]
-  console.log(page, '페이지받아 패치실행')
-  // console.log(category)
-  // console.log(items)
 
   try {
     const apiRes = await axios.get(

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchRecipeListById } from '../../fetch/fetchRecipeLiked'
 import { useStore, LikedState } from '../../components/store/store'
-import LikedRecipeItem from '../../components/myPage/LikedRecipeItem'
+import LikedRecipeItem from '../../components/myPage/MypageRecipeItem'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { TbMinusVertical } from 'react-icons/tb'
 import { useDeleteLikesMutation } from '../../components/likes/useLikesMutation'
