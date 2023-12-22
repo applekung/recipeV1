@@ -18,6 +18,7 @@ import UploadRecipe from './pages/UploadRecipe'
 import LikedRecipes from './pages/myPage/LikedRecipes'
 import MyComments from './pages/myPage/myComments'
 import DeleteUser from './pages/user/deleteUser'
+import Mypage from './components/myPage/myPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
@@ -37,8 +38,11 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Main />} />
-          <Route path="/test" element={<LikedRecipes />} />
-          <Route path="/testComments" element={<MyComments />} />
+          <Route path="/my" element={<Mypage />}>
+            <Route index element={<NicknameEdit />} />
+            <Route path="testComments" element={<MyComments />} />
+            <Route path="test" element={<LikedRecipes />} />
+          </Route>
           <Route path="/detail" element={<Detail />} />
           <Route path="/category" element={<RecipeCategoryList />} />
           <Route path="/login" element={<Login />} />
@@ -46,7 +50,6 @@ function App() {
           <Route path="category" element={<RecipeCategoryList />} />
           <Route path="login" element={<Login />} />
           <Route path="/delete" element={<DeleteUser />} />
-          <Route path="nickname" element={<NicknameEdit />} />
           <Route path="oauth" element={<Callback />} />
           <Route path="uploadrecipe" element={<UploadRecipe />} />
           {/* <Route path="signUp" element={<Signup />} /> */}

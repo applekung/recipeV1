@@ -8,12 +8,19 @@ const AppLayout = () => {
   const StyledAppLayout = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
   `
+
+  const MainContent = styled.div`
+    flex: 1;
+  `
+
   return (
     <StyledAppLayout>
       <Header />
-      <Outlet />
+      <MainContent>
+        <Outlet />
+      </MainContent>
       <Footer />
     </StyledAppLayout>
   )

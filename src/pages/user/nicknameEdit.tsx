@@ -74,7 +74,6 @@ const NicknameEdit = () => {
 
   return (
     <div className="">
-      {' '}
       <div className="text-2xl font-bold flex justify-center mt-20 ">
         회원 정보 수정
       </div>
