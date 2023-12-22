@@ -1,6 +1,6 @@
 import React from 'react'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
-import { useDeleteLikeMutation } from '../likes/useLikesMutation'
+import { useDeleteLikeMutation } from '../mutation/useLikesMutation'
 import moment from 'moment'
 
 const MypageRecipeItem = ({ recipe }: TempRecipe) => {

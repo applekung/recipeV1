@@ -4,7 +4,7 @@ import { IoIosStar } from 'react-icons/io'
 import { GoComment } from 'react-icons/go'
 import { FaHeart } from 'react-icons/fa'
 import { useStore, LikedState } from '../../components/store/store'
-import { useToggleLikeMutation } from '../likes/useLikesMutation'
+import { useToggleLikeMutation } from '../mutation/useLikesMutation'
 
 // 레시피 목록에 들어가는 카드 하나하나 -> 클릭시 상세페이지 이동
 interface IProps {

@@ -5,7 +5,7 @@ import { QueryFunction } from '@tanstack/react-query'
 const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
   queryKey,
 }) => {
-  const { keyword, items, page } = queryKey[1]
+  const { keyword, category, items, page } = queryKey[1]
 
   try {
     const apiRes = await axios.get(`api호출 주소`)
