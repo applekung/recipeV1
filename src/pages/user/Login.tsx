@@ -30,7 +30,7 @@ const Login = () => {
       <div className="flex-grow flex items-center justify-center bg-white-100">
         <div className="bg-gray-50 p-8 rounded shadow-md max-w-3xl">
           <h1 className="font-sans text-4xl mb-6 text-center font-semibold ">로그인</h1>
-          <h6 className='font-sans text-center p-2'>레시피헤븐의 다양한 서비스를 누리세요.</h6><br /><br />
+          <h6 className='font-sans text-center p-2'>레시피헤븐의 다양한 서비스를 누리세요.</h6><br />
           {/* 카카오 로그인 버튼 */}
           <button
             onClick={handleLogin}
