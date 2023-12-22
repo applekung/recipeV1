@@ -1,6 +1,8 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import Header from '../../components/common/Header'
+import Footer from '../../components/common/Footer'
 
 const NicknameEdit = () => {
   const [id, setId] = useState<string>('');
@@ -68,9 +70,10 @@ const NicknameEdit = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">닉네임 변경</h1>
+    <div className=''> <Header />
+      <div className="text-2xl font-bold flex justify-center mt-20 ">회원 정보 수정</div>
+        <div className='border-t mt-4 pt-4 flex flex-col items-center justify-center h-screen mx-auto p-4'>
+        <h1 className="text-2xl font-bold mb-4 ">닉네임 변경</h1>
         <form onSubmit={handleIdSubmit} className="max-w-md">
           <label className="block mb-2">
             현재 닉네임: {id || '없음'}
@@ -94,6 +97,7 @@ const NicknameEdit = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };
