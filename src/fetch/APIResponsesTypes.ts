@@ -14,8 +14,8 @@ export interface TempRecipe {
 }
 // 레시피 목록의 카드UI에 들어갈 자료
 export interface RecipeCard {
-  id: string
-  title: string
+  recipeId: number
+  recipeName: string
   image: string
   userId: string
   postDate: Date
@@ -25,7 +25,6 @@ export interface RecipeCard {
 
 // 키워드로 검색 시
 export interface ListBySearchAPIResponse {
-  id: string
   recipe: RecipeCard[]
 }
 

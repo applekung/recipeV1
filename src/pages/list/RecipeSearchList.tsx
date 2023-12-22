@@ -3,8 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
 
-import fetchTestGet from '../../fetch/fetchTestGet'
-
 import {
   ListBySearchAPIResponse,
   RecipeCard,
@@ -38,15 +36,10 @@ function RecipeSearchList() {
     [],
   )
 
-  const { data, isLoading, isError } = useQuery<string>({
+  const { data, isLoading, isError } = useQuery<ListBySearchAPIResponse>({
     queryKey: ['search', { keyword, items, page }],
-    queryFn: fetchTestGet,
-    enabled: !!keyword,
+    queryFn: fetchSearchRecipe,
   })
-  // const { data, isLoading, isError } = useQuery<ListBySearchAPIResponse>({
-  //   queryKey: ['search', { keyword, items, page }],
-  //   queryFn: fetchSearchRecipe,
-  // })
 
   if (isError) {
     throw new Error(
@@ -91,8 +84,8 @@ function RecipeSearchList() {
             test.map((recipe, idx) => (
               <RecipeItem
                 key={idx}
-                id={recipe.id}
-                title={recipe.id}
+                id={recipe.recipeId}
+                title={recipe.recipeName}
                 image={
                   'https://cdn.pixabay.com/photo/2022/05/20/08/55/pasta-7209002_640.jpg'
                 }

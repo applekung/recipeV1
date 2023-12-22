@@ -7,13 +7,13 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
 
   try {
     const apiRes = await axios.get(
-      `https://jsonplaceholder.typicode.com/comments?_limit=${items}&_page=${page}`,
+      `http://kdt-sw-7-team06.elicecoding.com:3000/recipe`,
     )
 
     if (apiRes.status !== 200) {
       throw new Error('레시피 로드중 에러발생.')
     }
-
+    console.log(apiRes)
     return apiRes.data
   } catch (error) {
     console.error(error)

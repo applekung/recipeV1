@@ -1,13 +1,14 @@
 import React from 'react'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
-import { useDeleteLikeMutation } from '../mutation/useLikesMutation'
+import { useDeleteCommentMutation } from '../../components/mutation/useCommentsMutation'
 import moment from 'moment'
 
 const MypageCommentItem = ({ comment }: TempRecipe) => {
-  const { deleteRecipe, isDeleting } = useDeleteLikeMutation(comment.id)
   const commentDate = new Date()
   const momentDate = moment(commentDate)
   const formattedDate = momentDate.format('YYYY-MM-DD, h:mm')
+
+  const { deleteComment, isDeleting } = useDeleteCommentMutation(comment.id)
 
   return (
     <div className="flex gap-3">
@@ -26,7 +27,7 @@ const MypageCommentItem = ({ comment }: TempRecipe) => {
       </div>
       <button
         onClick={() => {
-          deleteRecipe(comment.id)
+          deleteComment(comment.id)
         }}
         disabled={isDeleting}
       >

@@ -3,8 +3,6 @@ import { QueryFunction } from '@tanstack/react-query'
 import { TempRecipe } from './APIResponsesTypes'
 
 const fetchTestComment: QueryFunction<TempRecipe[]> = async ({ queryKey }) => {
-  const { keyword, category, items, page } = queryKey[1]
-
   try {
     const apiRes = await axios.get(
       `https://jsonplaceholder.typicode.com/comments?_limit=10`,

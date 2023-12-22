@@ -45,7 +45,7 @@ const RecipeItem = ({
             <div className="text-sm text-gray-600">{userId}</div>
             <div className="flex gap-2">
               <div>
-                <IoIosStar className="inline-block mb-0.5 mr-0.5 text-red-600" />
+                <IoIosStar className="inline-block mb-0.5 mr-0.5 text-primary" />
                 <span className="text-xs font-bold text-gray-700">
                   {avgRating}
                 </span>

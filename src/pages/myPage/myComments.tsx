@@ -4,6 +4,7 @@ import { Tempcomment } from '../../fetch/APIResponsesTypes'
 import fetchTestComment from '../../fetch/fetchTestComment'
 import { TbMinusVertical } from 'react-icons/tb'
 import MypageCommentItem from '../../components/myPage/MypageCommentItem'
+import { useDeleteCommentsMutation } from '../../components/mutation/useCommentsMutation'
 
 function MyComments() {
   const userId = 1
@@ -23,7 +24,7 @@ function MyComments() {
     queryFn: fetchTestComment,
   })
 
-  const { deleteComments, isDeleting } = useCommentsMutation(
+  const { deleteComments, isDeleting } = useDeleteCommentsMutation(
     checkedItems,
     setCheckedItems,
   )
