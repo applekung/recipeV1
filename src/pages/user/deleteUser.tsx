@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import Header from '../../components/common/Header'
-import Footer from '../../components/common/Footer'
 
 const DeleteUser = () => {
   const [isProcessing, setProcessing] = useState(false);
@@ -31,7 +29,7 @@ const DeleteUser = () => {
   };
 
   return (
-    <div className=""><Header />
+    <div className="">
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="font-sans text-2xl font-bold mb-4">회원탈퇴 전에 안내사항을 꼭 확인해주세요.</h1>
       <p className="font-sans mb-6">* 탈퇴하면 앞으로 이 계정으로 로그인할 수 없고 이 계정을 다시 복구할 수 없습니다<br></br>
@@ -49,7 +47,6 @@ const DeleteUser = () => {
         </button>
       </div>
       </div>
-      <Footer />
     </div>
   );
 };
