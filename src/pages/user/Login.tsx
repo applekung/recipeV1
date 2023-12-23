@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/userImg/kakao_login.png';
 import useLoginStore from '../../components/store/useLoginStore';
 
