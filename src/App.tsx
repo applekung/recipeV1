@@ -29,7 +29,6 @@ import CategoryManagement from './pages/admin/CategoryMenagement'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-
 function ScrollToTop() {
   const { pathname } = useLocation()
 
@@ -39,7 +38,6 @@ function ScrollToTop() {
 
   return null
 }
-
 
 function App() {
   const queryClient = new QueryClient({
@@ -58,13 +56,13 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/my" element={<Mypage />}>
             <Route index element={<NicknameEdit />} />
-            <Route path="testComments" element={<MyComments />} />
-            <Route path="test" element={<LikedRecipes />} />
+            <Route path="myComments" element={<MyComments />} />
+            <Route path="liked" element={<LikedRecipes />} />
           </Route>
           <Route path="/detail/:itemId" element={<Detail />} />
           <Route path="/category" element={<RecipeCategoryList />} />
           <Route path="/login" element={<Login />} />
-          <Route path="search" element={<RecipeSearchList />} />
+          <Route path="search/:keyword" element={<RecipeSearchList />} />
           <Route path="category" element={<RecipeCategoryList />} />
           <Route path="login" element={<Login />} />
           <Route path="/delete" element={<DeleteUser />} />
