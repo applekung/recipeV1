@@ -183,8 +183,6 @@ const previousData = [
         unit: '토끼',
       },
       {
-        name: '',
-        stock: '',
         item: '계란',
         unit: '수박',
       },
