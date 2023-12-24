@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.pureCSS {
-  color: blueviolet;
+body {
+  font-family: 'Noto Sans KR', sans-serif;
 }

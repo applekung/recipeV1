@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   fetchAddLike,
@@ -8,8 +7,6 @@ import {
 } from '../../fetch/fetchcUpdateLikes'
 import { useStore, LikedState } from '../store/store'
 
-type DeleteLikesInput = string[]
-
 export const useDeleteLikesMutation = (
   checkedItems: string[],
   setCheckedItems: React.Dispatch<React.SetStateAction<string[]>>,
@@ -17,12 +14,11 @@ export const useDeleteLikesMutation = (
   const { toggleLikedRecipe }: LikedState = useStore()
   const { mutate: deleteRecipes, isPending: isDeleting } = useMutation<
     void,
-    Error,
-    DeleteLikesInput
+    Error
   >({
-    mutationFn: (items: DeleteLikesInput) => fetchDeleteLikes(items),
-    onMutate: (items: DeleteLikesInput) => {
-      items.forEach((id) => toggleLikedRecipe(id))
+    mutationFn: () => fetchDeleteLikes(checkedItems),
+    onMutate: () => {
+      checkedItems.forEach((id) => toggleLikedRecipe(id))
     },
     onSuccess: () => {
       toast.success('찜하기 목록에서 삭제')
@@ -66,7 +62,6 @@ export const useToggleLikeMutation = (id: string) => {
   const { mutate: toggleRecipeLiked } = useMutation<void, Error, string>({
     mutationFn: () => (isLiked(id) ? fetchAddLike(id) : fetchDeleteLike(id)),
     onMutate: () => {
-      console.log(id)
       toggleLikedRecipe(id)
     },
     onSuccess: () => {

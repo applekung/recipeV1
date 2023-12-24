@@ -25,7 +25,21 @@
     "no-multi-spaces": ["error", { "ignoreEOLComments": true }],
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
     "@typescript-eslint/no-empty-function": 0,
-    "quotes": [2, "single"]
+    "quotes": [2, "single"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ]
   },
   "overrides": [
     {

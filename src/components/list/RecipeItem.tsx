@@ -4,7 +4,7 @@ import { IoIosStar } from 'react-icons/io'
 import { GoComment } from 'react-icons/go'
 import { FaHeart } from 'react-icons/fa'
 import { useStore, LikedState } from '../../components/store/store'
-import { useToggleLikeMutation } from '../likes/useLikesMutation'
+import { useToggleLikeMutation } from '../mutation/useLikesMutation'
 
 // 레시피 목록에 들어가는 카드 하나하나 -> 클릭시 상세페이지 이동
 interface IProps {
@@ -45,7 +45,7 @@ const RecipeItem = ({
             <div className="text-sm text-gray-600">{userId}</div>
             <div className="flex gap-2">
               <div>
-                <IoIosStar className="inline-block mb-0.5 mr-0.5 text-red-600" />
+                <IoIosStar className="inline-block mb-0.5 mr-0.5 text-primary" />
                 <span className="text-xs font-bold text-gray-700">
                   {avgRating}
                 </span>
@@ -70,7 +70,6 @@ const RecipeItem = ({
       >
         <FaHeart
           onClick={() => {
-            // toggleLikedRecipe(id)
             toggleRecipeLiked(id)
           }}
           className={

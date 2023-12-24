@@ -5,19 +5,17 @@ import { QueryFunction } from '@tanstack/react-query'
 const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
   queryKey,
 }) => {
-  const { keyword, items, page } = queryKey[1]
+  const { keyword, category, items, page } = queryKey[1]
 
   try {
-    const apiRes = await axios.get(`api호출 주소`)
-
-    if (apiRes.status !== 200) {
-      throw new Error('레시피 로드중 에러발생.')
-    }
+    const apiRes = await axios.get(
+      'http://kdt-sw-7-team06.elicecoding.com:3000/recipe',
+    )
 
     return apiRes.data
   } catch (error) {
     console.error(error)
-    throw error
+    throw new Error('레시피 로드중 에러발생.')
   }
 }
 

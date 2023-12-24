@@ -2,9 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
-
 import fetchTestGet from '../../fetch/fetchTestGet'
-
 import {
   ListBySearchAPIResponse,
   RecipeCard,
@@ -13,21 +11,28 @@ import RecipeItem from '../../components/list/RecipeItem'
 import useIntersect from '../../components/list/useIntersect'
 import ErrorBoundary from '../../components/error/ErrorBoundary'
 import LoadingSpinner from '../../components/common/LoadingSpinner'
+import { useStore, LikedState } from '../../components/store/store'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
+
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
   const [test, setTests] = useState<string[]>([])
   const keyword = '피자'
 
+  const { likedRecipes, toggleLikedRecipe }: LikedState = useStore((state) => ({
+    likedRecipes: state.likedRecipes,
+    toggleLikedRecipe: state.toggleLikedRecipe,
+  }))
+
   useEffect(() => {
     if (!keyword) {
       throw new Error('검색어를 입력해주세요')
     }
-    setRecipes([]) // Clear previous recipes if any
-    setPage(1) // Reset page to 1 when keyword changes
+    setRecipes([])
+    setPage(1)
   }, [keyword])
 
   useEffect(

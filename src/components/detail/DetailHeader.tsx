@@ -11,7 +11,8 @@ function DetailHeader() {
         {/* 서버에서 이미지 받아오기 */}
         <img
           className="w-full h-[30rem]"
-          src="./src/assets/detail/cake.jpeg"
+          // 수정 필요
+          src="../src/assets/detail/cake.jpeg"
           alt=""
         />
       </div>
