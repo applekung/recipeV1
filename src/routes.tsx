@@ -25,8 +25,8 @@ export const AppRoutes = () => {
         <Route path="/" element={<Main />} />
         <Route path="/my" element={<Mypage />}>
           <Route index element={<NicknameEdit />} />
-          <Route path="myComments" element={<MyComments />} />
-          <Route path="liked" element={<LikedRecipes />} />
+          <Route path="/my/myComments" element={<MyComments />} />
+          <Route path="/my/liked" element={<LikedRecipes />} />
         </Route>
         <Route path="/detail/:itemId" element={<Detail />} />
         <Route path="/category" element={<RecipeCategoryList />} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategoriesData , forModifyDummyData } from '../../public/dummy'
+import { dummyCategoriesData, forModifyDummyData } from '../../public/dummy'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ function ModifyRecipe() {
     des: string
     imgUrl: string
   }
-  
+
   // const { recipeId } = useParams()
   //   useEffect(() => {
   //     const fetchData = async () => {
@@ -38,7 +38,7 @@ function ModifyRecipe() {
   //     }
   //   })
 
-  const FkData = forModifyDummyData[0];
+  const FkData = forModifyDummyData[0]
 
   const [recipeName, setRecipeName] = useState<String>(FkData.recipeName)
   console.log('sadasdasdasdasd', recipeName)
@@ -46,7 +46,9 @@ function ModifyRecipe() {
   const [portion, setPortion] = useState<Number>(FkData.portion)
   const [leadTime, setLeadTime] = useState<Number>(FkData.leadTime)
   const [level, setLevel] = useState<Number>(FkData.level)
-  const [ingredients, setIngredients] = useState<Ingredient[]>(FkData.ingredient)
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    FkData.ingredient,
+  )
   const [categoryIg, setCategoryIg] = useState<String>(FkData.categoryIg)
   const [categorySt, setCategorySt] = useState<String>(FkData.categorySt)
   const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
@@ -59,14 +61,14 @@ function ModifyRecipe() {
     mainBtn.click()
   }
 
-const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
-  const selectedFile = event.target.files[0]
-  if (selectedFile) {
-    setMainImageVisible(true)
-    setRecipeMainImg(URL.createObjectURL(selectedFile))
-    console.log("대표 이미지 랜더링 성공")
+  const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files[0]
+    if (selectedFile) {
+      setMainImageVisible(true)
+      setRecipeMainImg(URL.createObjectURL(selectedFile))
+      console.log('대표 이미지 랜더링 성공')
+    }
   }
-}
 
   function addRecipeSequenceBtnHandler() {
     const newItem = {

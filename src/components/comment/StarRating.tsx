@@ -1,14 +1,21 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FaStar } from 'react-icons/fa'
 
-const StarRating = (): ReactElement => {
-  const [selectedRating, setSelectedRating] = useState<number>(0)
+interface StarRatingProps {
+  selectedRating: number
+  onRatingChange: (rating: number) => void
+}
+
+const StarRating = ({
+  selectedRating,
+  onRatingChange,
+}: StarRatingProps): ReactElement => {
   const [hoveredRating, setHoveredRating] = useState<number>(0)
   const totalStars = 5
   const [starRatingOnOff, setStarRatingOnOff] = useState<JSX.Element[]>([])
 
   const handleClick = (rating: number): void => {
-    setSelectedRating(selectedRating === rating ? 0 : rating)
+    onRatingChange(selectedRating === rating ? 0 : rating)
   }
 
   const handleHover = (rating: number): void => {

@@ -7,7 +7,7 @@ import DetailMainReview from '../components/detail/DetailMainReview'
 import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
 import { useParams } from 'react-router-dom'
-import Review from '../components/review/Reiview'
+import Comment from '../components/comment/Comment'
 
 function Detail() {
   const explaincontentList: string[] = dummyData.sequenceExplain
@@ -144,7 +144,7 @@ function Detail() {
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
-        <Review />
+        <Comment />
         {/* <DetailMainReview totalReview={comments} />
 
         <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
