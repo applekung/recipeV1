@@ -33,9 +33,6 @@ function MyComments() {
     throw new Error('나의 댓글 목록을 불러오는 중 오류가 발생했습니다.')
   }
 
-  console.log('comments')
-  console.log(data)
-
   useEffect(() => {
     if (!isLoading && data && data?.length) {
       setCommentList(data)
@@ -46,18 +43,17 @@ function MyComments() {
     setCheckedItems((prevCheckedItems) => {
       if (checked) {
         return [...prevCheckedItems, commentId]
-      } else {
-        return prevCheckedItems.filter((id) => id !== commentId)
       }
+      return prevCheckedItems.filter((id) => id !== commentId)
     })
   }
 
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(commentList.map((comment) => comment.id))
-    } else {
-      setCheckedItems([])
+      return
     }
+    setCheckedItems([])
   }
 
   const handelDelete = () => {
@@ -66,7 +62,6 @@ function MyComments() {
 
   return (
     <div>
-      <h2 className="font-sans">댓글 목록({commentList.length})</h2>
       <h2>댓글 목록({commentList.length})</h2>
       <div className="flex flex-col justify-center w-full">
         <div>

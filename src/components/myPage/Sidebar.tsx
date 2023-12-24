@@ -9,10 +9,10 @@ const Sidebar = () => {
           <Link to="/my">닉네임변경</Link>
         </li>
         <li className="py-5">
-          <Link to="/my/testComments">나의 댓글</Link>
+          <Link to="/my/myComments">나의 댓글</Link>
         </li>
         <li className="py-5">
-          <Link to="/my/test">찜한 레시피</Link>
+          <Link to="/my/liked">찜한 레시피</Link>
         </li>
       </ul>
     </div>

@@ -10,10 +10,6 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
       `https://jsonplaceholder.typicode.com/comments?_limit=${items}&_page=${page}`,
     )
 
-    if (apiRes.status !== 200) {
-      throw new Error('레시피 로드중 에러발생.')
-    }
-
     return apiRes.data
   } catch (error) {
     console.error(error)

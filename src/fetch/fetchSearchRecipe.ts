@@ -12,14 +12,10 @@ const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
       'http://kdt-sw-7-team06.elicecoding.com:3000/recipe',
     )
 
-    if (apiRes.status !== 200) {
-      throw new Error('레시피 로드중 에러발생.')
-    }
-
     return apiRes.data
   } catch (error) {
     console.error(error)
-    throw error
+    throw new Error('레시피 로드중 에러발생.')
   }
 }
 
