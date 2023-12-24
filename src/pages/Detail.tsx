@@ -7,27 +7,28 @@ import DetailMainReview from '../components/detail/DetailMainReview'
 import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
 import { useParams } from 'react-router-dom'
+import Review from '../components/review/Reiview'
 
 function Detail() {
   const explaincontentList: string[] = dummyData.sequenceExplain
   const sequenceImgList: string[] = dummyData.sequenceImg
   const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
 
-          // <Route path="/detail/:itemId" element={<Detail />} />
-  //  item id 값 url에서 읽어오기 
-  const { itemId } = useParams();
-
+  // <Route path="/detail/:itemId" element={<Detail />} />
+  //  item id 값 url에서 읽어오기
+  const { itemId } = useParams()
 
   useEffect(() => {
     async function getData() {
-      const data = await axios.get('https://jsonplaceholder.typicode.com/posts?userId=3')
-      console.log("data",data)
+      const data = await axios.get(
+        'https://jsonplaceholder.typicode.com/posts?userId=3',
+      )
+      console.log('data', data)
       // let params = new URL(document.location).searchParams
       // let name = params.get('name')
-
     }
     getData()
-  },[])
+  }, [])
 
   type ReviewModel = {
     reviewId: string
@@ -143,7 +144,8 @@ function Detail() {
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
-        <DetailMainReview totalReview={comments} />
+        <Review />
+        {/* <DetailMainReview totalReview={comments} />
 
         <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
           <div className="w-[7rem] h-[7rem] flex flex-wrap items-center justify-center text-4xl border-solid border-2 border-black-800">
@@ -164,7 +166,7 @@ function Detail() {
             </button>
           </div>
         </div>
-        {/*  */}
+         */}
       </div>
     </div>
   )
