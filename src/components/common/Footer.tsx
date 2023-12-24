@@ -3,7 +3,6 @@ import React from "react";
 function Footer() {
     return (
         <div>
-          <link rel="stylesheet" href="src\components\common\navbar.css"></link>
             <footer className="bg-gray-100 text-black p-4">
                 <div className="container mx-auto  w-[64rem]">
                     <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-2">

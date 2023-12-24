@@ -4,6 +4,7 @@ import useUserStore from './userStore'
 import axios from 'axios';
 import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
+import './navbar.css';
 // import { create } from 'zustand';
 
 function Header() {
@@ -131,8 +132,7 @@ function Header() {
   };
 
   return (
-    <div id="header" className="flex mt-3 items-center w-full justify-center">
-      <link rel="stylesheet" href="./src/components/navbar.css"></link>
+    <div id="header" className="flex pt-1 items-center w-full justify-center bg-white">
       <div className="logo">
         <Link to="/">
           <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
