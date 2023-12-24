@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategoriesData } from '../../public/dummy'
+import { dummyCategorList } from '../../public/dummy'
 import axios from 'axios'
+import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
+import { Link } from 'react-router-dom'
 
 function UploadRecipe() {
-  const ingredientCategoryTitle = dummyCategoriesData[0].name
-  const situationCategoryTitle = dummyCategoriesData[1].name
-  const ingredientCategory = dummyCategoriesData.filter(
-    (item) => item.id === 1,
-  )[0].children
-  const situationCategory = dummyCategoriesData.filter(
-    (item) => item.id === 2,
-  )[0].children
+  const ingredientCategoryTitle = dummyCategorList[0].name
+  const situationCategoryTitle = dummyCategorList[1].name
+  const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
+    .children
+  const situationCategory = dummyCategorList.filter((item) => item.id === 2)[0]
+    .children
 
   interface Ingredient {
     item: string
@@ -25,7 +25,7 @@ function UploadRecipe() {
 
   const [recipeName, setRecipeName] = useState<String>('')
   const [recipeMainImg, setRecipeMainImg] = useState<String>('')
-  const [portion, setPortion] = useState<Number>()
+  const [portion, setPortion] = useState<Number>( )
   const [leadTime, setLeadTime] = useState<Number>()
   const [level, setLevel] = useState<Number>()
   const [ingredients, setIngredients] = useState<Ingredient[]>([
@@ -76,14 +76,13 @@ function UploadRecipe() {
   }
 
   const addIngredient = () => {
-    setIngredients([...ingredients, { name: '', stock: '' }])
+    setIngredients([...ingredients, { item: '', unit: '' }])
   }
 
   function createRecipeData() {
     return {
       recipeName: recipeName,
-      // img: recipeMainImg,
-      img: 'hi',
+      img: recipeMainImg,
       portion: portion,
       leadTime: leadTime,
       setCgIngredient: categoryIg,
@@ -95,37 +94,35 @@ function UploadRecipe() {
     }
   }
 
-  
-
   const submit = async () => {
     try {
       const recipeData = createRecipeData()
+      const formData = new FormData()
+      formData.append('recipeName', recipeName)
+      formData.append('img', recipeMainImg)
+      formData.append('portion', portion)
+      formData.append('portion', portion)
+      formData.append('leadTime', leadTime)
+      formData.append('setCgIngredient', categoryIg)
+      formData.append('setCgSituation', categorySt)
+      formData.append('level', level)
+      formData.append('ingredient', JSON.stringify(ingredients))
+      formData.append('step', JSON.stringify(recipeSequenceItems))
 
       await axios.post(
-        'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
-        recipeData,
+        // 'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
+        'https://jsonplaceholder.typicode.com/posts',
+        formData,
       )
-
-      console.log('success, Data', recipeData)
+      console.log('success, json data', recipeData)
+      console.log('success, form Data', formData)
       console.log('전송 성공')
     } catch (e) {
-      const recipeData = createRecipeData()
-      console.log('fail, Data', recipeData)
+      // const recipeData = createRecipeData()
+      console.log('fail, Data', formData)
       console.log('error', e)
     }
   }
-
-  // const formData = new FormData()
-  // formData.append('recipeName', recipeName)
-  // formData.append('img', recipeMainImg)
-  // formData.append('portion', portion)
-  // formData.append('portion', portion)
-  // formData.append('leadTime', leadTime)
-  // formData.append('setCgIngredient', categoryIg)
-  // formData.append('setCgSituation', categorySt)
-  // formData.append('level', level)
-  // formData.append('ingredient', JSON.stringify(ingredients))
-  // formData.append('step', JSON.stringify(recipeSequenceItems))
 
   return (
     <>
@@ -212,7 +209,7 @@ function UploadRecipe() {
                 placeholder="인원"
                 value={portion}
                 onChange={(e) => {
-                  setPortion(e.target.value)
+                  setPortion(Number(e.target.value))
                 }}
               />
             </div>
@@ -224,7 +221,7 @@ function UploadRecipe() {
                 placeholder="시간"
                 value={leadTime}
                 onChange={(e) => {
-                  setLeadTime(e.target.value)
+                  setLeadTime(Number(e.target.value))
                 }}
               />
             </div>
@@ -236,7 +233,7 @@ function UploadRecipe() {
                 placeholder="난이도"
                 value={level}
                 onChange={(e) => {
-                  setLevel(e.target.value)
+                  setLevel(Number(e.target.value))
                 }}
               />
             </div>
@@ -309,11 +306,7 @@ function UploadRecipe() {
                         type="file"
                         accept="image/*"
                         onChange={(e) =>
-                          handleStepChange(
-                            index,
-                            'imgUrl',
-                            URL.createObjectURL(e.target.files[0]),
-                          )
+                          handleStepChange(index, 'imgUrl', e.target.files[0])
                         }
                       />
                       {item.imgUrl === '' && (
@@ -326,7 +319,7 @@ function UploadRecipe() {
                       )}
                       {item.imgUrl && (
                         <img
-                          src={item.imgUrl}
+                          src={URL.createObjectURL(item.imgUrl)}
                           alt={`Step ${item.stepNum}`}
                           className="recipe-step-image"
                         />
@@ -350,9 +343,9 @@ function UploadRecipe() {
           <div className="saveBtn" onClick={submit}>
             레시피 등록
           </div>
-          <div className="cancelBtn" onClick={submit}>
-            취소
-          </div>
+          <Link to="/">
+            <div className="cancelBtn">취소</div>
+          </Link>
         </div>
       </div>
     </>

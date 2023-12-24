@@ -45,9 +45,6 @@ function Detail() {
   // 본인이 작성한 글이라 가정
   const [myBlogContent, setMyBlogContent] = useState(true)
 
-  // console.log("comments", comments);
-  // console.log('review', filterdCommentList)
-
   function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value)
   }
