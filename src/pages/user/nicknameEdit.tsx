@@ -1,84 +1,59 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
 const NicknameEdit = () => {
-  const [id, setId] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
+  // 상태 변수들
+  const [id, setId] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [newId, setNewId] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
+  // 컴포넌트 마운트 시 로컬 스토리지에서 닉네임 가져오기
   useEffect(() => {
-    const fetchName = async () => {
-      try {
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts/1',
-        )
-        console.log('응답 데이터:', response.data)
-        if (response.data && response.data.id) {
-          setId(response.data.id.toString())
-          setLoading(false)
-        } else {
-          console.error('서버 응답에 유효한 데이터가 없습니다.')
-          setLoading(false)
-        }
-      } catch (error) {
-        console.error('닉네임 불러오기 중 오류 발생:', error)
-        setLoading(false)
-      }
+    const storedNickname = localStorage.getItem('nickname');
+    setId(storedNickname || '');
+    setLoading(false);
+  }, []);
+
+  // 입력된 새로운 닉네임 변경 시 호출되는 함수
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewId(e.target.value);
+    setError(null); // 사용자가 입력을 시작하면 이전 오류를 지웁니다.
+  };
+
+  // 닉네임 변경 양식 제출 시 호출되는 함수
+  const handleIdSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 필요한 경우 유효성 검사 또는 추가 로직 수행
+    if (newId.trim() === '') {
+      setError('새로운 닉네임을 입력하세요.');
+      return;
     }
 
-    fetchName()
-  }, [])
+    // 새로운 닉네임을 로컬 스토리지에 저장하거나 API 호출 수행
+    // 지금은 콘솔에 기록하기만 합니다.
+    console.log('새로운 닉네임:', newId);
 
-  const handleIdChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value)
-  }
+    // 상태 업데이트 또는 필요한 작업 수행
+    setId(newId);
+    setNewId('');
+  };
 
-  const handleIdSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    try {
-      if (validateId()) {
-        const response = await axios.patch(
-          'https://jsonplaceholder.typicode.com/posts/1',
-          {},
-        )
-
-        console.log('응답 데이터:', response.data) // 응답 데이터를 콘솔에 출력
-
-        if (response.data && response.data.id) {
-          toast.success('닉네임이 변경되었습니다')
-          setId(response.data.id.toString())
-        }
-      }
-    } catch (error) {
-      console.error('닉네임 변경 중 오류 발생:', error)
-      toast.error('닉네임 변경 중 오류가 발생했습니다.')
-    }
-  }
-
-  const validateId = (): boolean => {
-    if (id.length < 2 || id.length > 8) {
-      setError('닉네임은 최소 2글자에서 최대 8글자 사이어야 합니다.')
-      toast.error('닉네임은 최소 2글자에서 최대 8글자 사이어야 합니다.')
-      return false
-    }
-
-    setError(null)
-    return true
-  }
-
+  // 데이터 로딩 중일 때
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
+  // 컴포넌트 렌더링
   return (
     <div className="">
-      <div className="text-2xl font-bold flex justify-center mt-20 ">
+      <div className="text-2xl font-bold flex justify-center mt-20">
         회원 정보 수정
       </div>
       <div className="border-t mt-4 pt-4 flex flex-col items-center justify-center h-screen mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4 ">닉네임 변경</h1>
+        <h1 className="text-2xl font-bold mb-4">닉네임 변경</h1>
         <form onSubmit={handleIdSubmit} className="max-w-md">
           <label className="block mb-2">현재 닉네임: {id || '없음'}</label>
           <label className="block mb-4">
@@ -86,7 +61,7 @@ const NicknameEdit = () => {
             <input
               id="newId"
               type="text"
-              value={id}
+              value={newId}
               onChange={handleIdChange}
               className="border p-2 w-full"
             />
@@ -101,7 +76,7 @@ const NicknameEdit = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NicknameEdit
+export default NicknameEdit;

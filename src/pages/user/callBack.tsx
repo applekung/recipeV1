@@ -1,49 +1,54 @@
 import React, { useEffect } from 'react';
-//import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import useTokenStore from '../../components/store/tokenStore';
 
-function Callback() {
+const Callback = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { setAccessToken } = useTokenStore();
+
   useEffect(() => {
-    const handleAuthorizationCode = async () => {
-      // URL에서 인가코드 추출
-      const urlParams = new URLSearchParams(window.location.search);
-      const authorizationCode = urlParams.get('code');
+    const sendAuthorizationCodeToServer = async (code: string) => {
+      try {
+        const response = await axios.post('http://localhost:3000/auth/login/kakao', {
+          code,
+          domain,
+        });
 
-      console.log('인가 코드:', authorizationCode); // 콘솔에 인가 코드 잘받아오는지 확인
+        console.log('##after backend response: ', response.data);
 
-      if (authorizationCode) {
-        try {
-          // 백엔드 서버의 URL
-          const backendUrl = 'https://your-backend-server.com/auth/kakao';
+        const nicknameFromCallback = response.data.user.properties.nickname;
 
-          // 인가코드를 백엔드로 전송
-          const response = await axios.post(backendUrl, {
-            code: authorizationCode,
-          });
+        // 닉네임을 localStorage에 저장
+        localStorage.setItem('nickname', nicknameFromCallback);
 
-          // 서버에서 받은 응답 처리
-          console.log('백엔드에서 받은 응답:', response.data);
+        // 토큰 스토어에서 받은 토큰 설정
+        // setAccessToken(response.data.accessToken);
 
-          // 토큰 로직 자리
-
-          // navigate('/dashboard'); 
-        } catch (error) {
-          console.error('서버로 인가 코드를 전송하는 과정에서 오류가 발생:', error);
-        }
-      } else {
-        console.error('인가 코드를 찾을 수 없음');
+        navigate('/my', { state: { nicknameFromCallback } });
+      } catch (error) {
+        console.error('서버로 인가 코드를 전송하는 과정에서 오류가 발생:', error);
       }
     };
 
-    // 인가코드 처리 함수 호출
-    handleAuthorizationCode();
-  }, []);
+    const domain = 'http://localhost:5173';
+    const authorizationCode = new URLSearchParams(location.search).get('code');
+
+    if (authorizationCode) {
+      sendAuthorizationCodeToServer(authorizationCode);
+      console.log('인가 코드:', authorizationCode);
+    } else {
+      console.error('인가 코드를 찾을 수 없음');
+    }
+  }, [location, navigate, setAccessToken]);
 
   return (
     <div>
       콜백 페이지
+      <div></div>
     </div>
   );
-}
+};
 
 export default Callback;
