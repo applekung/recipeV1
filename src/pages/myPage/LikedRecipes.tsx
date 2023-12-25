@@ -5,6 +5,7 @@ import LikedRecipeItem from '../../components/myPage/MypageRecipeItem'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { TbMinusVertical } from 'react-icons/tb'
 import { useDeleteLikesMutation } from '../../components/mutation/useLikesMutation'
+import { useQuery } from '@tanstack/react-query'
 
 const LikedRecipes = () => {
   const { likedRecipes }: LikedState = useStore()
@@ -22,14 +23,16 @@ const LikedRecipes = () => {
     [],
   )
 
-  useEffect(() => {
-    const fetchLikedRecipes = async () => {
-      const fetchedRecipes = await fetchRecipeListById(likedRecipes)
-      setRecipeList(fetchedRecipes)
-    }
+  const { data, isLoading, isError } = useQuery<TempRecipe[]>({
+    queryKey: ['likedRecipes', likedRecipes],
+    queryFn: fetchRecipeListById,
+  })
 
-    fetchLikedRecipes()
-  }, [likedRecipes])
+  useEffect(() => {
+    if (data) {
+      setRecipeList(data)
+    }
+  }, [data])
 
   const handleSingleCheck = (checked, recipeId: string) => {
     setCheckedItems((prevCheckedItems) => {

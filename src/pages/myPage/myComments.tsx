@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Tempcomment } from '../../fetch/APIResponsesTypes'
-import fetchTestComment from '../../fetch/fetchTestComment'
+import fetchTestComment from '../../fetch/fetchMyComment'
 import { TbMinusVertical } from 'react-icons/tb'
 import MypageCommentItem from '../../components/myPage/MypageCommentItem'
-import { useDeleteCommentsMutation } from '../../components/mutation/useCommentsMutation'
+import { useDeleteCommentsMutation } from '../../components/mutation/useMyCommentsMutation'
 
 function MyComments() {
   const userId = 1
@@ -19,8 +19,8 @@ function MyComments() {
   )
 
   const { data, isLoading, isError } = useQuery<Tempcomment[]>({
-    queryKey: ['comments'],
-    // 유저 아이디는 fetchFn에서 store에사
+    queryKey: ['myComments'],
+    // 유저 아이디는 fetchFn에서 store에서
     queryFn: fetchTestComment,
   })
 

@@ -8,6 +8,7 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
   try {
     const apiRes = await axios.get(
       `https://jsonplaceholder.typicode.com/comments?_limit=${items}&_page=${page}`,
+      // `http://kdt-sw-7-team06.elicecoding.com:3000/recipe`,
     )
 
     return apiRes.data

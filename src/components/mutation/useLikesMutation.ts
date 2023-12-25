@@ -25,7 +25,6 @@ export const useDeleteLikesMutation = (
       setCheckedItems([])
     },
     onError: () => {
-      console.error()
       toast.error('잠시 후 다시 시도해주세요')
       checkedItems.forEach((id) => toggleLikedRecipe(id))
     },

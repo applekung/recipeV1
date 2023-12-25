@@ -18,10 +18,10 @@ export const useDeleteCommentsMutation = (
   >({
     mutationFn: () => fetchDeleteComments(checkedItems),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['comments'] })
-      const previousComments = queryClient.getQueriesData(['comments'])
+      await queryClient.cancelQueries({ queryKey: ['myComments'] })
+      const previousComments = queryClient.getQueriesData(['myComments'])
       queryClient.setQueriesData(
-        ['comments'],
+        ['myComments'],
         previousComments[0][1].filter(
           (comment) => !checkedItems.includes(comment.id),
         ),
@@ -34,10 +34,10 @@ export const useDeleteCommentsMutation = (
     },
     onError: (err, _, context) => {
       toast.error('잠시 후 다시 시도해주세요')
-      queryClient.setQueriesData(['comments'], context.previousComments)
+      queryClient.setQueriesData(['myComments'], context.previousComments)
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] })
+      queryClient.invalidateQueries({ queryKey: ['myComments'] })
     },
   })
 
@@ -52,10 +52,10 @@ export const useDeleteCommentMutation = (id: number) => {
   >({
     mutationFn: () => fetchDeleteComment(id),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['comments'] })
-      const previousComments = queryClient.getQueriesData(['comments'])
+      await queryClient.cancelQueries({ queryKey: ['myComments'] })
+      const previousComments = queryClient.getQueriesData(['myComments'])
       queryClient.setQueriesData(
-        ['comments'],
+        ['myComments'],
         previousComments[0][1].filter((comment) => comment.id !== id),
       )
       return { previousComments }
@@ -65,10 +65,10 @@ export const useDeleteCommentMutation = (id: number) => {
     },
     onError: () => {
       toast.error('잠시 후 다시 시도해주세요')
-      queryClient.setQueriesData(['comments'], context.previousComments)
+      queryClient.setQueriesData(['myComments'], context.previousComments)
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] })
+      queryClient.invalidateQueries({ queryKey: ['myComments'] })
     },
   })
 

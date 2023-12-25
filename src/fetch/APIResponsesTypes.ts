@@ -5,6 +5,16 @@ export interface Recipe {
   id: string
 }
 
+export interface Comment {
+  reviewId: number
+  star: number
+  comment: string
+  userId: string
+  deletedAt: null
+  updatedAt: Date
+  createdAt: Date
+}
+
 // 좋아요한 레시피 임시
 export interface TempRecipe {
   id: number

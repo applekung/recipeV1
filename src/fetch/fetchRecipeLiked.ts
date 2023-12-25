@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { TempRecipe } from './APIResponsesTypes'
+import { QueryFunction } from '@tanstack/react-query'
 
 const fetchRecipeById = async (recipeId: string): Promise<TempRecipe> => {
   try {
@@ -12,11 +13,14 @@ const fetchRecipeById = async (recipeId: string): Promise<TempRecipe> => {
   }
 }
 
-export const fetchRecipeListById = async (
-  recipeIds: string[],
-): Promise<TempRecipe[]> => {
+export const fetchRecipeListById: QueryFunction<TempRecipe[]> = async ({
+  queryKey,
+}: {
+  queryKey
+}): Promise<TempRecipe[]> => {
+  const likedRecipes = queryKey[1]
   try {
-    const recipePromises = recipeIds.map((id) => fetchRecipeById(id))
+    const recipePromises = likedRecipes.map((id) => fetchRecipeById(id))
     const recipeList = await Promise.all(recipePromises)
     return recipeList
   } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { dummyCategorList } from '../../public/dummy'
 import axios from 'axios'
-import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
+// import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link } from 'react-router-dom'
 
 function UploadRecipe() {
@@ -25,7 +25,7 @@ function UploadRecipe() {
 
   const [recipeName, setRecipeName] = useState<String>('')
   const [recipeMainImg, setRecipeMainImg] = useState<String>('')
-  const [portion, setPortion] = useState<Number>( )
+  const [portion, setPortion] = useState<Number>()
   const [leadTime, setLeadTime] = useState<Number>()
   const [level, setLevel] = useState<Number>()
   const [ingredients, setIngredients] = useState<Ingredient[]>([

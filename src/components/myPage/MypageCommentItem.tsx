@@ -1,6 +1,6 @@
 import React from 'react'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
-import { useDeleteCommentMutation } from '../../components/mutation/useCommentsMutation'
+import { useDeleteCommentMutation } from '../mutation/useMyCommentsMutation'
 import moment from 'moment'
 
 const MypageCommentItem = ({ comment }: TempRecipe) => {
