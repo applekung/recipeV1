@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import {
@@ -5,27 +6,33 @@ import {
   useDeleteCommentMutation,
 } from '../mutation/useCommentsMutation'
 import StarRating from './StarRating'
-import { useEffect, useState } from 'react'
 
 const CommentItem = ({ comment }: TempRecipe) => {
-  console.log(comment)
   const commentDate = new Date()
   const momentDate = moment(commentDate)
   const formattedDate = momentDate.format('YYYY-MM-DD, h:mm')
+
+  const loginId = 5
+
   const [selectedRating, setSelectedRating] = useState(comment.postId || 0)
   const [commentContent, setCommentContent] = useState(comment.name || '')
+  const [isEditing, setIsEditing] = useState(false) // Edit state
 
-  const handleRatingChange = (rating: number): void => {
-    setSelectedRating(rating)
-  }
   const { updateComment, isUpdating } = useUpdateCommentMutation()
   const { deleteComment, isDeleting } = useDeleteCommentMutation()
 
   useEffect(() => {
-    console.log('업데이트 로직 일어남')
     setCommentContent(comment.name)
     setSelectedRating(comment.postId)
   }, [isUpdating, comment.name])
+
+  const handleRatingChange = (rating: number): void => {
+    setSelectedRating(rating)
+  }
+
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -37,44 +44,54 @@ const CommentItem = ({ comment }: TempRecipe) => {
     updateComment(updatedComment)
     setCommentContent('')
     setSelectedRating(0)
+    setIsEditing(false)
   }
 
-  interface Comment {
-    name: string
-  }
   return (
     <div className="flex">
-      <form onSubmit={handleFormSubmit}>
-        <div>유저아이디는{comment.id}</div>
-        <div>
-          <label htmlFor="starRating">별점:</label>
-          <StarRating
-            selectedRating={selectedRating}
-            onRatingChange={handleRatingChange}
-          />
+      {isEditing ? (
+        <form onSubmit={handleFormSubmit}>
+          <div>
+            <label htmlFor="starRating">별점:</label>
+            <StarRating
+              selectedRating={selectedRating}
+              onRatingChange={handleRatingChange}
+            />
+          </div>
+          <div>
+            <textarea
+              id="commentContent"
+              name="commentContent"
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+            />
+          </div>
+          <button type="submit" disabled={isUpdating}>
+            작성완료
+          </button>
+        </form>
+      ) : (
+        <div className="flex flex-col">
+          <div>유저아이디는{comment.id}</div>
+          <StarRating selectedRating={comment.postId} readOnly={true} />
+          <div>{commentContent}</div>
+          <div>{formattedDate}</div>
         </div>
-        <div>
-          <textarea
-            id="commentContent"
-            name="commentContent"
-            value={commentContent}
-            onChange={(e) => setCommentContent(e.target.value)}
-          />
-        </div>
-        <div>{formattedDate}</div>
-        <button type="submit" disabled={isUpdating}>
-          작성완료
-        </button>
-      </form>
+      )}
 
-      <button
-        onClick={() => {
-          deleteComment(comment.id)
-        }}
-        disabled={isDeleting}
-      >
-        X
-      </button>
+      {!isEditing && loginId === comment.id && (
+        <button onClick={handleEditClick}>수정</button>
+      )}
+      {loginId === comment.id && (
+        <button
+          onClick={() => {
+            deleteComment(comment.id)
+          }}
+          disabled={isDeleting}
+        >
+          삭제
+        </button>
+      )}
     </div>
   )
 }
