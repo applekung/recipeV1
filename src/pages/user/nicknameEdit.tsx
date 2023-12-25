@@ -3,7 +3,7 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
 const NicknameEdit = () => {
-  // 상태 변수들
+  // 상태 변수
   const [id, setId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [newId, setNewId] = useState<string>('');
@@ -19,7 +19,7 @@ const NicknameEdit = () => {
   // 입력된 새로운 닉네임 변경 시 호출되는 함수
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewId(e.target.value);
-    setError(null); // 사용자가 입력을 시작하면 이전 오류를 지웁니다.
+    setError(null); // 사용자가 입력을 시작하면 이전 오류 지우기
   };
 
   // 닉네임 변경 양식 제출 시 호출되는 함수
@@ -33,7 +33,6 @@ const NicknameEdit = () => {
     }
 
     // 새로운 닉네임을 로컬 스토리지에 저장하거나 API 호출 수행
-    // 지금은 콘솔에 기록하기만 합니다.
     console.log('새로운 닉네임:', newId);
 
     // 상태 업데이트 또는 필요한 작업 수행
@@ -46,7 +45,6 @@ const NicknameEdit = () => {
     return <div>Loading...</div>;
   }
 
-  // 컴포넌트 렌더링
   return (
     <div className="">
       <div className="text-2xl font-bold flex justify-center mt-20">
