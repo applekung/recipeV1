@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import useUserStore from './userStore'
+// import useUserStore from './userStore'
+import { useStore } from '../store/store'
 import axios from 'axios'
 import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
@@ -88,31 +89,26 @@ function Header() {
   }
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
-  const { token } = useUserStore()
-  const { administration } = useUserStore()
+  const { getAccessToken } = useStore() // Destructure getAccessToken from your store
+  const accessToken = getAccessToken()
+  // const { administration } = useUserStore()
   const navigate = useNavigate()
 
-  // console.log('Token:', token);
+  console.log('Token:', accessToken)
 
   const mypageIconClick = () => {
-    if (token) {
+    if (accessToken) {
       // 토큰이 존재하면 로그인된 상태로 간주
-      navigate('/search') //주소변경 필요
+      navigate('/search') //마이페이지로 주소변경 필요
       console.log('회원-로그인화면 이동')
     } else {
-      // 토큰 존재x, 관리자 권한o
-      if (administration) {
-        navigate('/admin_caterory') //주소변경 필요
-        console.log('관리자-관리자페이지 이동')
-      } else {
-        navigate('/Login') //주소변경 필요
-        console.log('비회원-로그인페이지 이동')
-      }
+      navigate('/Login') //주소변경 필요
+      console.log('비회원-로그인페이지 이동')
     }
   }
 
   const writingIconClick = () => {
-    if (token) {
+    if (accessToken) {
       // 토큰이 존재하면 로그인된 상태로 간주
       navigate('/uploadrecipe') //글 쓰기 페이지 주소변경 필요
     } else {
@@ -157,8 +153,6 @@ function Header() {
         // }
       }
     }
-
-
   }
 
   return (
@@ -296,16 +290,17 @@ function Header() {
                 onClick={mypageIconClick}
               />
             </button>
-            <div className="dropdown-content">
-              <Link to="/" className="block px-3 py-1 ">
-                마이페이지
-              </Link>
-              <Link to="/" className="block px-4 py-1 ">
-                로그아웃
-              </Link>
-            </div>
+            {accessToken && (
+              <div className="dropdown-content">
+                <Link to="/" className="block px-3 py-1 ">
+                  마이페이지
+                </Link>
+                <Link to="/" className="block px-4 py-1 ">
+                  로그아웃
+                </Link>
+              </div>
+            )}
           </div>
-
           <Link to="/">
             <img
               className="mr-1"

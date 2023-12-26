@@ -8,6 +8,7 @@ export interface StoreState {
   isLiked: (recipeId: string) => boolean
   accessToken: string | null
   setAccessToken: (token: string | null) => void
+  getAccessToken: () => string | null
 }
 
 export const useStore = create<StoreState>()(
@@ -23,7 +24,8 @@ export const useStore = create<StoreState>()(
               ? state.likedRecipes.filter((id) => id !== recipeId)
               : [...state.likedRecipes, recipeId],
           })),
-        accessToken: null,
+        // accessToken: null,
+        accessToken: 'ads',
         setAccessToken: (newToken) => {
           if (newToken === null || typeof newToken !== 'string') {
             console.error('유효하지 않은 토큰 형식입니다.')
