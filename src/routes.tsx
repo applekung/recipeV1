@@ -2,8 +2,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import AppLayout from './components/ui/AppLayout'
 import Main from './pages/Main'
-import RecipeSearchList from './pages/list/RecipeSearchList'
-import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
 import Header from './components/common/Header'
@@ -17,6 +15,8 @@ import DeleteUser from './pages/user/deleteUser'
 import Mypage from './pages/myPage/Mypage'
 import ModifyRecipe from './pages/ModifyPage'
 import CategoryManagement from './pages/admin/CategoryMenagement'
+import SearchCategotyErrorBoundary from './pages/list/RecipeSearchCategoryList'
+import SearchErrorBoundary from './pages/list/RecipeSearchList'
 
 export const AppRoutes = () => {
   return (
@@ -29,9 +29,12 @@ export const AppRoutes = () => {
           <Route path="/my/liked" element={<LikedRecipes />} />
         </Route>
         <Route path="/detail/:itemId" element={<Detail />} />
-        <Route path="/category" element={<RecipeCategoryList />} />
         <Route path="/login" element={<Login />} />
-        <Route path="search/:keyword" element={<RecipeSearchList />} />
+        <Route path="search/:keyword" element={<SearchErrorBoundary />} />
+        <Route
+          path="category/:category"
+          element={<SearchCategotyErrorBoundary />}
+        />
         <Route path="/delete" element={<DeleteUser />} />
         <Route path="oauth" element={<Callback />} />
         <Route path="uploadrecipe" element={<UploadRecipe />} />
