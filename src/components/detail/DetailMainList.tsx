@@ -30,7 +30,11 @@ type FoodMakingListProps = {
   index: number
 }
 
-function FoodMakingList({ sequenseImgUrl, explainText, index,}: FoodMakingListProps) {
+function FoodMakingList({
+  sequenseImgUrl,
+  explainText,
+  index,
+}: FoodMakingListProps) {
   return (
     <div className="flex justify-center p-10 flex-wrap">
       <div className="w-3/12 min-w-[15rem]">

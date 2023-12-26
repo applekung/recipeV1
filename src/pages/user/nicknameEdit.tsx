@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
 const NicknameEdit = () => {
   // 상태 변수
-  const [id, setId] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-  const [newId, setNewId] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
+  const [id, setId] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(true)
+  const [newId, setNewId] = useState<string>('')
+  const [error, setError] = useState<string | null>(null)
 
   // 컴포넌트 마운트 시 로컬 스토리지에서 닉네임 가져오기
   useEffect(() => {
-    const storedNickname = localStorage.getItem('nickname');
-    setId(storedNickname || '');
-    setLoading(false);
-  }, []);
+    const storedNickname = localStorage.getItem('nickname')
+    setId(storedNickname || '')
+    setLoading(false)
+  }, [])
 
   // 입력된 새로운 닉네임 변경 시 호출되는 함수
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewId(e.target.value);
-    setError(null); // 사용자가 입력을 시작하면 이전 오류 지우기
-  };
+    setNewId(e.target.value)
+    setError(null) // 사용자가 입력을 시작하면 이전 오류 지우기
+  }
 
   // 닉네임 변경 양식 제출 시 호출되는 함수
   const handleIdSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // 필요한 경우 유효성 검사 또는 추가 로직 수행
     if (newId.trim() === '') {
-      setError('새로운 닉네임을 입력하세요.');
-      return;
+      setError('새로운 닉네임을 입력하세요.')
+      return
     }
 
     // 새로운 닉네임을 로컬 스토리지에 저장하거나 API 호출 수행
-    console.log('새로운 닉네임:', newId);
+    console.log('새로운 닉네임:', newId)
 
     // 상태 업데이트 또는 필요한 작업 수행
-    setId(newId);
-    setNewId('');
-  };
+    setId(newId)
+    setNewId('')
+  }
 
   // 데이터 로딩 중일 때
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -74,7 +74,7 @@ const NicknameEdit = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NicknameEdit;
+export default NicknameEdit
