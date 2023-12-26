@@ -82,6 +82,7 @@ function RecipeSearchList() {
     { threshold: 0.5 },
   )
   const tt = false
+  console.log(test)
   return (
     <div className="p-8 w-full flex flex-col items-center">
       {tt ? (
@@ -106,12 +107,12 @@ function RecipeSearchList() {
                 reviewCnt={100}
                 // key={recipe.id}
                 // id={recipe.id}
-                // title={recipe.title}
+                // title={recipe.recipeName}
                 // image={recipe.image}
-                // userId={recipe.userId}
+                // userId={'유저아이디입니다'}
                 // postDate={recipe.postDate}
-                // avgRating={recipe.avgRating}
-                // reviewCnt={recipe.reviewCnt}
+                // avgRating={recipe.avgStar}
+                // reviewCnt={recipe.reviews.length}
               />
             ))
           ) : (

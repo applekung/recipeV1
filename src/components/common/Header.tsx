@@ -7,7 +7,7 @@ import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
-import { Toast } from 'react-hot-toast'
+import toast, { Toast } from 'react-hot-toast'
 // import { create } from 'zustand';
 
 function Header() {
@@ -89,11 +89,12 @@ function Header() {
   }
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
-  const { getAccessToken } = useStore() // Destructure getAccessToken from your store
-  const accessToken = getAccessToken()
+  const { getAccessToken, accessToken } = useStore() // Destructure getAccessToken from your store
+  const token = getAccessToken()
   // const { administration } = useUserStore()
   const navigate = useNavigate()
 
+  console.log('Token:', token)
   console.log('Token:', accessToken)
 
   const mypageIconClick = () => {

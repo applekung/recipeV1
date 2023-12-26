@@ -8,7 +8,7 @@ const fetchTestComment: QueryFunction<TempRecipe[]> = async ({ queryKey }) => {
   try {
     const apiRes = await axios.get(
       `https://jsonplaceholder.typicode.com/comments?_limit=10`,
-      // `http://kdt-sw-7-team06.elicecoding.com:3000/review`,
+      // `http://kdt-sw-7-team06.elicecoding.com:3000/reviews`,
     )
 
     return apiRes.data
