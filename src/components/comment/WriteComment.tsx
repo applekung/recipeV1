@@ -24,30 +24,35 @@ const WriteComment = () => {
       return
     }
 
-    postComment({ name: 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ' })
+    postComment({ name: 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ', postId: 5 })
     setSelectedRating(0)
     setCommentContent('')
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="starRating">별점:</label>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <div className="flex">
+        {/* <label htmlFor="starRating">별점: </label> */}
         <StarRating
           selectedRating={selectedRating}
           onRatingChange={handleRatingChange}
         />
       </div>
-      <div>
-        <textarea
-          id="commentContent"
-          name="commentContent"
-          value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
-        />
+      <div className="flex flex-row">
+        <div>
+          <textarea
+            id="commentContent"
+            name="commentContent"
+            value={commentContent}
+            onChange={(e) => setCommentContent(e.target.value)}
+            className="p-2 w-[42rem] rounded border border-gray-300 focus:outline-none resize-none"
+          />
+        </div>
+        <div className="ml-2">
+          <button type="submit" disabled={isPosting}>
+            완료
+          </button>
+        </div>
       </div>
-      <button type="submit" disabled={isPosting}>
-        작성완료
-      </button>
     </form>
   )
 }

@@ -39,7 +39,7 @@ const StarRating = ({
           onClick={() => handleClick(i + 1)}
           onMouseEnter={() => handleHover(i + 1)}
           onMouseLeave={resetHover}
-          className={`relative ml-auto ${
+          className={`relative ml-auto text-lg ${
             isFilled || (!readOnly && isHovered)
               ? 'text-yellow-500'
               : 'text-gray-400'

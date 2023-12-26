@@ -20,10 +20,10 @@ const Comment = () => {
   }, [isLoading, data])
 
   return (
-    <div>
+    <div className="w-3/5">
       <WriteComment />
       {commentList.map((comment) => (
-        <div key={comment}>
+        <div key={comment} className="w-full">
           <CommentItem comment={comment} />
         </div>
       ))}
