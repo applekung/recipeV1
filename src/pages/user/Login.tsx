@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import loginImage from '../../assets/userImg/kakao_login.png';
-import useLoginStore from '../../components/store/useLoginStore';
 
 const Login = () => {
-  const { loading, setLoading } = useLoginStore();
+  const [loading, setLoading] = useState(false);
 
   const Rest_api_key = import.meta.env.VITE_REST_API_KEY; // REST API 키
   const redirect_uri = import.meta.env.VITE_APP_REDIRECT_URI; // 리다이렉트 URI

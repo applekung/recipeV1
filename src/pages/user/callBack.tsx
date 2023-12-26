@@ -37,7 +37,7 @@ const Callback = () => {
 
     if (authorizationCode) {
       sendAuthorizationCodeToServer(authorizationCode);
-      console.log('인가 코드:', authorizationCode);
+     // console.log('인가 코드:', authorizationCode);
     } else {
       console.error('인가 코드를 찾을 수 없음');
     }
