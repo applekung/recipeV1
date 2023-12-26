@@ -8,7 +8,7 @@ export interface StoreState {
   isLiked: (recipeId: string) => boolean
   accessToken: string | null
   setAccessToken: (token: string | null) => void
-  getAccessToken: () => string | null
+  getAccessToken: (token: string | null) => void
 }
 
 export const useStore = create<StoreState>()(
