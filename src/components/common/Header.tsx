@@ -7,12 +7,12 @@ import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
-import toast, { Toast } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 // import { create } from 'zustand';
 
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => {})
+  dummyCategoriesData.map((item) => { })
 
   //categoryParent=null 필터링해서 상위카테고리로 만들기
   const topCatetory = dummyCategoriesData.filter(
@@ -29,21 +29,19 @@ function Header() {
       dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
   )
 
-  // API에서 데이터
-  interface Category {
-    categoryId: number
-    categoryName: string
-    categoryParent: string
-  }
+  // // API에서 데이터
+  // interface Category {
+  //   categoryId: number
+  //   categoryName: string
+  //   categorySub: any[]
+  // }
 
-  // 카테고리 navbar API 가져오기
-  // async function getCategoryData(): Promise<Category[]> {
+  // // 카테고리 navbar API 가져오기
+  // async function getCategoryData(): Promise<Category[]>{
   //   try {
-  //     const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com/category');
+  //     const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys');
   //     console.log('APIsadasdasd 성공', res);
   //     return res.data // 데이터를 Category 배열 타입으로 캐스팅
-  //     console.log("이건 또 왜 안뜨냐")
-  //     console.log('res.data: ', res.data)
   //   } catch (error) {
   //     console.error('API 실패', error);
   //     throw error; // 필요시 에러를 다시 던질 수 있습니다.
@@ -116,42 +114,38 @@ function Header() {
   }
 
   //검색바 스크롤
-  const [isVisible, setIsVisible] = useState(true)
-  const [isMain, setIsMain] = useState<boolean>()
-  const [height, setHeight] = useState(0)
-  // const headerRef = useRef(null);
-  //메인 페이지 인지 확인 path===/
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMain, setIsMain] = useState<boolean>(true); // 메인화면 판별
+  const [height, setHeight] = useState(0);
 
-  const { pathname } = useLocation()
-  useEffect(() => {
-    setIsMain(pathname === '/')
-  }, [pathname])
-  console.log('isMain')
-  console.log(isMain)
-  // const [hasMainSearch, setHasMainSearch] = useState(true);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    window.addEventListener('scroll', listenToScroll)
-    return () => window.removeEventListener('scroll', listenToScroll)
-  }, [])
+    setIsMain(pathname === '/');
+  }, [pathname]);
 
-  const listenToScroll = () => {
-    let heightToHideFrom = 200
-    const winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop
-    setHeight(winScroll)
+  useEffect(() => {
+    const listenToScroll = () => {
+      let heightToHideFrom = 200;
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      setHeight(winScroll);
 
-    if (isMain) {
-      if (winScroll < heightToHideFrom) {
-        isVisible && setIsVisible(false) //Hidden
+      if (isMain) {
+        if (winScroll < heightToHideFrom) {
+          isVisible && setIsVisible(false); // Hidden
+        } else {
+          // Scroll up, show again
+          setIsVisible(true);
+        }
       } else {
-        setIsVisible(true) //스크롤 올라가면 다시 나타나게하기
-        // if (headerRef.current) {
-        //   // headerRef.current.classList.remove('hidden');
-        // }
+        setIsVisible(true);
       }
-    }
-  }
+    };
+
+    window.addEventListener('scroll', listenToScroll);
+
+    return () => window.removeEventListener('scroll', listenToScroll);
+  }, [isMain]);
 
   return (
     <div className="w-[1024px] flex items-center mx-auto">
@@ -200,7 +194,7 @@ function Header() {
                 size={25}
                 value={searchTerm}
                 onChange={handleInputChange}
-                // onKeyPress={handleKeyPress}
+              // onKeyPress={handleKeyPress}
               />
               <button
                 id="submit"
@@ -208,13 +202,11 @@ function Header() {
                 className=""
                 onClick={handleSearch}
               >
-                <Link to={`/search/${searchTerm.trim()}`}>
-                  <img
-                    src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-                    className="w-4 top-2 right-3 m-0 ml-5 justify-end"
-                    alt="search"
-                  />
-                </Link>
+                <img
+                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                  className="w-4 top-2 right-3 m-0 ml-5 justify-end"
+                  alt="search"
+                />
               </button>
             </div>
           </div>
