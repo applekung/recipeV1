@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchRecipeListById } from '../../fetch/fetchRecipeLiked'
-import { useStore, LikedState } from '../../components/store/store'
+import { useStore, StoreState } from '../../components/store/store'
 import LikedRecipeItem from '../../components/myPage/MypageRecipeItem'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { TbMinusVertical } from 'react-icons/tb'
@@ -8,7 +8,7 @@ import { useDeleteLikesMutation } from '../../components/mutation/useLikesMutati
 import { useQuery } from '@tanstack/react-query'
 
 const LikedRecipes = () => {
-  const { likedRecipes }: LikedState = useStore()
+  const { likedRecipes }: StoreState = useStore()
   const [recipeList, setRecipeList] = useState<TempRecipe[]>([])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const { deleteRecipes, isDeleting } = useDeleteLikesMutation(

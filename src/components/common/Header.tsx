@@ -94,9 +94,6 @@ function Header() {
   // const { administration } = useUserStore()
   const navigate = useNavigate()
 
-  console.log('Token:', token)
-  console.log('Token:', accessToken)
-
   const mypageIconClick = () => {
     if (accessToken) {
       // 토큰이 존재하면 로그인된 상태로 간주

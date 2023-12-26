@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const fetchAddLike = async (recipeId: string): Promise<void> => {
+export const fetchAddLike = async (recipeId: number): Promise<void> => {
   // const response = await axios.post(
   const response = await axios.get(
     `https://jsonplaceholder.typicode.com/posts/${recipeId}`,
@@ -8,7 +8,7 @@ export const fetchAddLike = async (recipeId: string): Promise<void> => {
   return response.data
 }
 
-export const fetchDeleteLike = async (recipeId: string): Promise<void> => {
+export const fetchDeleteLike = async (recipeId: number): Promise<void> => {
   try {
     const response = await axios.delete(
       `https://jsonplaceholder.typicode.com/posts/${recipeId}`,
