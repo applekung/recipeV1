@@ -7,7 +7,7 @@ import { useStore, StoreState } from '../../components/store/store'
 import { useToggleLikeMutation } from '../mutation/useLikesMutation'
 import { RecipeCard } from '../../fetch/APIResponsesTypes'
 
-const RecipeItem = ({ recipe }: RecipeCard) => {
+const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
   const { isLiked }: StoreState = useStore()
 
   const { toggleRecipeLiked } = useToggleLikeMutation(recipe.recipeId)

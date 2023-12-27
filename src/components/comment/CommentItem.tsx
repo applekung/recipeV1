@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { TempRecipe } from '../../fetch/APIResponsesTypes'
+import { Comment } from '../../fetch/APIResponsesTypes'
 import {
   useUpdateCommentMutation,
   useDeleteCommentMutation,
 } from '../mutation/useCommentsMutation'
 import StarRating from './StarRating'
 
-const CommentItem = ({ comment }: TempRecipe) => {
-  const commentDate = new Date()
-  const momentDate = moment(commentDate)
+const CommentItem = ({ review }: { review: Comment }) => {
+  const momentDate = moment(review.createdAt)
   const formattedDate = momentDate.format('YYYY-MM-DD. h:mm')
 
   const loginId = 5
 
-  const [selectedRating, setSelectedRating] = useState(comment.postId || 0)
-  const [commentContent, setCommentContent] = useState(comment.name || '')
-  const [isEditing, setIsEditing] = useState(false) // Edit state
+  const [selectedRating, setSelectedRating] = useState(review.star || 0)
+  const [commentContent, setCommentContent] = useState(review.comment || '')
+  const [isEditing, setIsEditing] = useState(false)
 
   const { updateComment, isUpdating } = useUpdateCommentMutation()
   const { deleteComment, isDeleting } = useDeleteCommentMutation()
 
   useEffect(() => {
-    setCommentContent(comment.name)
-    setSelectedRating(comment.postId)
-  }, [isUpdating, comment.name])
+    setCommentContent(review.comment)
+    setSelectedRating(review.star)
+  }, [isUpdating, review.comment])
 
   const handleRatingChange = (rating: number): void => {
     setSelectedRating(rating)
@@ -37,9 +36,9 @@ const CommentItem = ({ comment }: TempRecipe) => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const updatedComment = {
-      ...comment,
+      ...review,
       name: commentContent,
-      postId: selectedRating,
+      reviewId: selectedRating,
     }
     updateComment(updatedComment)
     setCommentContent('')
@@ -79,8 +78,8 @@ const CommentItem = ({ comment }: TempRecipe) => {
         <div className="flex my-3">
           <div className="flex flex-col w-[42rem] gap-1">
             <div className="flex gap-2">
-              <StarRating selectedRating={comment.postId} readOnly={true} />
-              <span className="font-bold">{comment.postId}</span>
+              <StarRating selectedRating={review.star} readOnly={true} />
+              <span className="font-bold">{review.star}</span>
             </div>
             <div className="flex gap-2">
               <div className="text-sm font-medium">샐러드요정</div>
@@ -89,13 +88,13 @@ const CommentItem = ({ comment }: TempRecipe) => {
             <div className="font-light">{commentContent}</div>
           </div>
           <div className="flex gap-2">
-            {!isEditing && loginId === comment.id && (
+            {!isEditing && loginId === 5 && (
               <button onClick={handleEditClick}>수정</button>
             )}
-            {loginId === comment.id && (
+            {loginId === 5 && (
               <button
                 onClick={() => {
-                  deleteComment(comment.id)
+                  deleteComment(review.reviewId)
                 }}
                 disabled={isDeleting}
               >

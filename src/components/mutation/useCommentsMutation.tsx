@@ -5,7 +5,7 @@ import {
   fetchDeleteComments,
 } from '../../fetch/fetchDeleteComments'
 import { useQueryClient } from '@tanstack/react-query'
-import { TempRecipe } from '../../fetch/APIResponsesTypes'
+import { Comment } from '../../fetch/APIResponsesTypes'
 import { fetchPostComment } from '../../fetch/fetchPostComment'
 
 export const usePostCommentMutation = () => {
@@ -14,8 +14,8 @@ export const usePostCommentMutation = () => {
     void,
     Error
   >({
-    mutationFn: (postData: TempRecipe) => fetchPostComment('postData'),
-    onMutate: async (postData: TempRecipe) => {
+    mutationFn: (postData: Comment) => fetchPostComment('postData'),
+    onMutate: async (postData: Comment) => {
       await queryClient.cancelQueries({ queryKey: ['comments'] })
       const previousComments = queryClient.getQueriesData(['comments'])
       queryClient.setQueriesData(['comments'], (old) => [...old, postData])
@@ -24,7 +24,7 @@ export const usePostCommentMutation = () => {
     onSuccess: () => {
       toast.success('댓글 추가 완료')
     },
-    onError: () => {
+    onError: (error, variables, context) => {
       toast.error('잠시 후 다시 시도해주세요')
       queryClient.setQueriesData(['comments'], context.previousComments)
     },
@@ -45,10 +45,10 @@ export const useDeleteCommentMutation = () => {
     mutationFn: (id: number) => fetchDeleteComment(id),
     onMutate: async (id: number) => {
       await queryClient.cancelQueries({ queryKey: ['comments'] })
-      const previousComments = queryClient.getQueriesData<TempRecipe[]>([
+      const previousComments = queryClient.getQueriesData<Comment[]>([
         'comments',
       ])
-      queryClient.setQueriesData<TempRecipe[]>(
+      queryClient.setQueriesData<Comment[]>(
         ['comments'],
         previousComments[0][1].filter((comment) => comment.id !== id),
       )
@@ -57,9 +57,9 @@ export const useDeleteCommentMutation = () => {
     onSuccess: () => {
       toast.success('댓글 삭제 완료')
     },
-    onError: () => {
+    onError: (error, variables, context) => {
       toast.error('잠시 후 다시 시도해주세요')
-      queryClient.setQueriesData<TempRecipe[]>(
+      queryClient.setQueriesData<Comment[]>(
         ['comments'],
         context.previousComments,
       )
@@ -77,20 +77,16 @@ export const useUpdateCommentMutation = () => {
   const { mutate: updateComment, isPending: isUpdating } = useMutation<
     void,
     Error,
-    TempRecipe
+    Comment
   >({
-    // mutationFn: (updatedComment: TempRecipe) =>
-    //   fetchUpdateComment(updatedComment),
-    mutationFn: (updatedComment: TempRecipe) => fetchPostComment('postData'),
-    onMutate: async (updatedComment: TempRecipe) => {
+    mutationFn: (updatedComment: Comment) => fetchPostComment('postData'),
+    onMutate: async (updatedComment: Comment) => {
       await queryClient.cancelQueries({ queryKey: ['comments'] })
-      const previousComments = queryClient.getQueryData<TempRecipe[]>([
-        'comments',
-      ])
+      const previousComments = queryClient.getQueryData<Comment[]>(['comments'])
       const updatedComments = previousComments.map((comment) =>
         comment.id === updatedComment.id ? updatedComment : comment,
       )
-      queryClient.setQueryData<TempRecipe[]>(['comments'], updatedComments)
+      queryClient.setQueryData<Comment[]>(['comments'], updatedComments)
       return { previousComments }
     },
     onSuccess: () => {
@@ -98,7 +94,7 @@ export const useUpdateCommentMutation = () => {
     },
     onError: (error, variables, context) => {
       toast.error('잠시 후 다시 시도해주세요')
-      queryClient.setQueryData<TempRecipe[]>(
+      queryClient.setQueryData<Comment[]>(
         ['comments'],
         context.previousComments,
       )
