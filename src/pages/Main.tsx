@@ -24,10 +24,10 @@ function Main() {
         </span>
       </Link>
       <RankItem />
-      <Link to="/search">
+      <Link to="/category/해산물">
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
-          달콤한 인기 레시피 {'>'}
+          바다를 품은 레시피 {'>'}
         </span>
       </Link>
       <RankItem />

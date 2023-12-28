@@ -2,7 +2,6 @@ import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-
 function MainSearch() {
   const navigate = useNavigate()
 
@@ -43,15 +42,20 @@ function MainSearch() {
           size={65}
           value={searchTerm}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
-          <button id="submit" aria-label="submit" className="" onClick={handleSearch}
->
-            <img
-              src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-              className="w-4 top-2 right-3 ml-10 justify-end"
-              alt="search"
-            />
-          </button>
+        <button
+          id="submit"
+          aria-label="submit"
+          className=""
+          onClick={handleSearch}
+        >
+          <img
+            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+            className="w-4 top-2 right-3 ml-10 justify-end"
+            alt="search"
+          />
+        </button>
       </div>
     </div>
   )

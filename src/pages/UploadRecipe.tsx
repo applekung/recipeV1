@@ -83,7 +83,7 @@ function UploadRecipe() {
     return {
       recipeName: recipeName,
       // img: recipeMainImg,
-      img:"asdasd",
+      img: 'asdasd',
       portion: portion,
       leadTime: leadTime,
       // setCgIngredient: categoryIg,
@@ -95,7 +95,7 @@ function UploadRecipe() {
     }
   }
 
-    const { recipeId } = useParams()
+  const { recipeId } = useParams()
 
   const submit = async () => {
     try {
@@ -127,7 +127,7 @@ function UploadRecipe() {
       console.log('error', e)
     }
   }
-    console.log('esradsasdasd', recipeId)
+  console.log('esradsasdasd', recipeId)
   // console.log('window.location.href', window.location)
 
   return (
@@ -314,7 +314,7 @@ function UploadRecipe() {
                         onChange={(e) =>
                           // file로 입력
                           // handleStepChange(index, 'imgUrl', e.target.files[0])
-                          handleStepChange(index, 'imgUrl', "ㅇㅇㅇ")
+                          handleStepChange(index, 'imgUrl', 'ㅇㅇㅇ')
                         }
                       />
                       {item.imgUrl === '' && (

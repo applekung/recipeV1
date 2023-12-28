@@ -121,7 +121,7 @@ const dummyCategoriesData: Category[] = [
   },
   {
     categoryId: 2,
-    categoryName: '육류',
+    categoryName: '소고기',
     categoryParent: '재료별',
   },
   {
@@ -131,13 +131,43 @@ const dummyCategoriesData: Category[] = [
   },
   {
     categoryId: 4,
-    categoryName: '특별한날',
+    categoryName: '일상',
     categoryParent: '상황별',
   },
   {
     categoryId: 5,
+    categoryName: '돼지고기',
+    categoryParent: '재료별',
+  },
+  {
+    categoryId: 6,
+    categoryName: '닭고기',
+    categoryParent: '재료별',
+  },
+  {
+    categoryId: 6,
     categoryName: '해산물',
     categoryParent: '재료별',
+  },
+  {
+    categoryId: 6,
+    categoryName: '채소',
+    categoryParent: '재료별',
+  },
+  {
+    categoryId: 6,
+    categoryName: '파티요리',
+    categoryParent: '상황별',
+  },
+  {
+    categoryId: 6,
+    categoryName: '다이어트',
+    categoryParent: '상황별',
+  },
+  {
+    categoryId: 6,
+    categoryName: '간편요리',
+    categoryParent: '상황별',
   },
   {
     categoryId: 6,

@@ -4,11 +4,9 @@ import { IoIosPeople } from 'react-icons/io'
 import { TbStarsFilled } from 'react-icons/tb'
 import { dummyData } from '../../../public/dummy'
 
-
 function DetailHeader({ fetchData }) {
-
-  if (!fetchData){
-    return null;
+  if (!fetchData) {
+    return null
   }
 
   return (
@@ -89,5 +87,3 @@ function DetailHeader({ fetchData }) {
 }
 
 export default DetailHeader
-
-

@@ -24,8 +24,8 @@ const Callback = () => {
         console.log('after backend response: ', response.data)
         console.log('after backend response: ', response)
         // 토큰 스토어에서 받은 토큰 설정
-        setAccessToken(response.data.accessToken);
-        console.log('토큰:', response.data.accessToken);
+        setAccessToken(response.data.accessToken)
+        console.log('토큰:', response.data.accessToken)
         navigate('/')
       } catch (error) {
         console.error(
@@ -41,8 +41,8 @@ const Callback = () => {
     const authorizationCode = new URLSearchParams(location.search).get('code')
 
     if (authorizationCode) {
-      sendAuthorizationCodeToServer(authorizationCode);
-     // console.log('인가 코드:', authorizationCode);
+      sendAuthorizationCodeToServer(authorizationCode)
+      // console.log('인가 코드:', authorizationCode);
     } else {
       console.error('인가 코드를 찾을 수 없음')
     }
@@ -50,14 +50,12 @@ const Callback = () => {
 
   return (
     <div>
-      
       <div></div>
     </div>
   )
 }
 
 export default Callback
-
 
 // import React, { useEffect } from 'react';
 // import { useNavigate, useLocation } from 'react-router-dom';
@@ -85,7 +83,7 @@ export default Callback
 //         );
 
 //         console.log('백엔드 받은 응답:', response.data);
-        
+
 //         const jwtToken: string = response.data.jwtToken;
 
 //         // 콘솔에 토큰 값 출력
