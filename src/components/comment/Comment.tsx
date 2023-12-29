@@ -1,36 +1,51 @@
-import React, { useEffect, useState } from 'react'
-import WriteComment from './WriteComment'
-import { Comment } from '../../fetch/APIResponsesTypes'
-import { useQuery } from '@tanstack/react-query'
-import fetchTestComment from '../../fetch/fetchMyComment'
-import CommentItem from './CommentItem'
+import React, { useState } from 'react'
+import StarRating from './StarRating'
+import toast from 'react-hot-toast'
 
 const Comment = () => {
-  const [commentList, setCommentList] = useState<Comment[]>([])
+  const [selectedRating, setSelectedRating] = useState(0)
+  const [commentContent, setCommentContent] = useState('')
 
-  const { data, isLoading, isError } = useQuery<Comment[]>({
-    queryKey: ['comments'],
-    queryFn: fetchTestComment,
-  })
+  const handleRatingChange = (rating: number): void => {
+    setSelectedRating(rating)
+  }
 
-  useEffect(() => {
-    if (!isLoading && data) {
-      setCommentList(data)
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    if (selectedRating === 0) {
+      toast.error('별점을 입력해주세요')
+      return
     }
-  }, [isLoading, data])
+    if (commentContent.trim() === '') {
+      toast.error('내용을 입력해주세요')
+      return
+    }
 
+    const formData = new FormData()
+    formData.append('commentContent', commentContent)
+
+    console.log(commentContent)
+    console.log(selectedRating)
+  }
   return (
-    <div className="w-5/6 flex flex-col items-center justify-center">
-      <WriteComment />
-      {commentList?.map((comment) => (
-        <div
-          key={comment.reviewId}
-          className="w-full flex flex-col items-center justify-center"
-        >
-          <CommentItem review={comment} />
-        </div>
-      ))}
-    </div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="starRating">별점:</label>
+        <StarRating
+          selectedRating={selectedRating}
+          onRatingChange={handleRatingChange}
+        />
+      </div>
+      <div>
+        <textarea
+          id="commentContent"
+          name="commentContent"
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
+        />
+      </div>
+      <button type="submit">작성완료</button>
+    </form>
   )
 }
 export default Comment
