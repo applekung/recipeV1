@@ -3,7 +3,7 @@ import { RecipeCard } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
 
 const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
-  const { category, items, page } = queryKey[1]
+  const { category, items, page, keyword } = queryKey[1]
 
   try {
     let apiRes
@@ -17,9 +17,9 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
       apiRes = await axios.get(
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
       )
+      return apiRes.data.filter((recipe) => recipe.name.includes(keyword))
     }
 
-    console.log(apiRes.data)
     return apiRes.data
   } catch (error) {
     console.error(error)

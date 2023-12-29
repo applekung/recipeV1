@@ -24,7 +24,7 @@ function RecipeSearchList() {
   }, [keyword])
 
   const { data, isLoading, isError } = useQuery<RecipeCard[]>({
-    queryKey: ['search', { items, page }],
+    queryKey: ['search', { items, page, keyword }],
     queryFn: fetchSearchRecipe,
   })
 
