@@ -24,7 +24,7 @@ const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
         <div className="flex flex-col group relative overflow-hidden">
           <div className="overflow-hidden rounded w-full h-60">
             <img
-              src={recipe.image}
+              src={recipe.img}
               alt={`${recipe.recipeName}의 메인이미지`}
               className="object-cover w-full h-60 duration-1000 group-hover:scale-125"
             />

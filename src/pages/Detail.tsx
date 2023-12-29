@@ -10,45 +10,6 @@ import '../../src/components/uploadRecipe/uploadRecipe.css'
 import { realCategoryList } from '../../public/dummy'
 
 function Detail() {
-  // 방법 1번
-  // const ingredientCategoryList = []
-  // realCategoryList.map((item) => {
-  //   if (item.categoryName?.indexOf("재료별") === 0) {
-  //     ingredientCategoryList.push(item)
-  //   }
-  // })
-
-  // console.log('ingredientCategoryList', ingredientCategoryList)
-
-  // const ex = ingredientCategoryList.map((item) => {
-  //   // item.categoryName
-  //   console.log('item.categoryName 하위',item.categoryName)
-  //   return item.categoryName.split("_")[1]
-  // })
-
-  // console.log("ex",ex)
-  // 2번
-  // const ingredientCategoryList = realCategoryList
-  //   .filter((item) => {
-  //     return item.categoryName?.indexOf('재료별') === 0
-  //   })
-  //   .map((item) => {
-  //     return item.categoryName?.split('_')[1]
-  //   })
-
-  // const getCategory = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       'http://kdt-sw-7-team06.elicecoding.com:3000/recipes/1',
-  //     )
-  //     return res.data
-  //   } catch (e) {
-  //     console.log('e', e)
-  //   }
-  // }
-
-  // console.log('ingredientCategoryList', ingredientCategoryList)
-
   // const [inputValue, setInputValue] = useState<string>('')
   const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
   const [explaincontentList, setExplaincontentList] = useState<string[]>([])
@@ -57,8 +18,6 @@ function Detail() {
   const [ingredientUnitList, setIngredientUnitList] = useState<string[]>([])
   const [myBlogContent, setMyBlogContent] = useState(true)
   const [showOptions, setShowOptions] = useState(false)
-
-  // fetch data 타입 처리 우선적
 
   interface Step {
     des: string
@@ -86,8 +45,7 @@ function Detail() {
     reviews: any[]
   }
 
-  // const { recipeId } = useParams<{ recipeId: string }>()
-    const { recipeId } = useParams()
+  const { recipeId } = useParams()
 
   useEffect(() => {
     console.log('recipeId', recipeId)

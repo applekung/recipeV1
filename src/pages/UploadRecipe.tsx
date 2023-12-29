@@ -125,6 +125,10 @@ function UploadRecipe() {
   console.log('esradsasdasd', recipeId)
   // console.log('window.location.href', window.location)
 
+  useEffect(() => {
+    console.log(createRecipeData());
+  })
+
   return (
     <>
       <link
