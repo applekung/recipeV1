@@ -54,7 +54,7 @@ function RecipeSearchList() {
     },
     { threshold: 0.5 },
   )
-
+    console.log("test",recipes)
   return (
     <div className="ml-20">
       "{keyword}" 검색 결과({recipes.length})

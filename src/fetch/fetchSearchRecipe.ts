@@ -1,38 +1,34 @@
 import axios from 'axios'
 import { RecipeCard } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
-
-const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
-  const { category, items, page, keyword } = queryKey[1]
-
-  console.log('category', category)
-
+const getCategoryApiData = async (id) => {
   try {
     const categoryApiRes = await axios.get(
       'http://kdt-sw-7-team06.elicecoding.com:3000/categorys',
     )
     return categoryApiRes.data.filter(
-      (item) => item.categoryName.indexOf(category) !== -1,
+      (item) => item.categoryName.indexOf(id) !== -1,
     )
-    // categoryApiRes.data.filter((item) => {
-    //   item.categoryName.indexOf(category) !== -1
-    // })
-    // return categoryApiRes.data.filter((item) => {
-    //   item.categoryName.indexOf(category) !== -1
-    // })
   } catch (e) {
     console.log('category api get error', e)
   }
+}
+
+const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
+  const { category, items, page, keyword } = queryKey[1]
 
   try {
     let apiRes
 
     if (category) {
+
+      const getApiId = await getCategoryApiData(category);
+      const getApData = getApiId[0].categoryId;
       apiRes = await axios.get(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${categoryApiRes.categoryId}`,
+        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${getApData}`,
         // `http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys/${category}`,
       )
-      // return apiRes.data.recipes
+      return apiRes.data.recipes
     } else {
       apiRes = await axios.get(
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,

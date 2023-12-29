@@ -57,6 +57,9 @@ function RecipeSearchCategoryList() {
     },
     { threshold: 0.5 },
   )
+
+  console.log("recipesearchcategory",recipes)
+
   return (
     <div className="ml-20">
       {category} 카테고리 검색 결과({recipes.length})

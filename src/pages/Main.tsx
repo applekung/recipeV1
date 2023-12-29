@@ -18,18 +18,18 @@ function Main() {
 
       {/* 경로변경필요 */}
       <span className="flex flex-col items-center text-2xl font-bold my-7">
-        <Link to="/search/모든레시피">
+        <Link to="/category/소고기">
           <p> 이달의 인기 레시피 {'>'}</p>
         </Link>
       </span>
-      <RankItem topic={'테스트'} />
+      <RankItem category={'소고기'} />
       {/* 경로변경필요 */}
       <span className="flex flex-col items-center text-2xl font-bold my-7">
         <Link to="/category/해산물">
           <p> 바다를 품은 레시피 {'>'}</p>
         </Link>
       </span>
-      <RankItem topic={'해산물'} />
+      <RankItem category={'해산물'} />
     </div>
   )
 }
