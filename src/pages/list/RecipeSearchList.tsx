@@ -57,7 +57,7 @@ function RecipeSearchList() {
 
   return (
     <div className="ml-20">
-      "{keyword}"에 대한 검색 결과({recipes.length})
+      "{keyword}" 검색 결과({recipes.length})
       <div className="p-8 w-full flex flex-col items-center">
         <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
           {recipes.length ? (

@@ -17,7 +17,7 @@ function Main() {
           className="w-[64rem]"
         />
       </div>
-      <Link to="/search">
+      <Link to="/search/모든레시피">
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
           이달의 인기 레시피 {'>'}
