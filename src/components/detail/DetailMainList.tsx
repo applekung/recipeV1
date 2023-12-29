@@ -10,14 +10,13 @@ function DetailMain({ explaincontentList, sequenceImgList }) {
   return (
     <div className="flex flex-col bg-white w-5/6">
       {explaincontentList.map((item, index) => {
-        console.log(sequenceImgList[index])
-        const imageIndex = index + 1
-
+        // console.log(sequenceImgList[index])
+        // const imageIndex = index + 1
         return (
           <div key={index}>
             <FoodMakingList
-              // sequenseImgUrl={sequenceImgList[index]}
-              sequenseImgUrl={imageIndex}
+              sequenseImgUrl={sequenceImgList[index]}
+              // sequenseImgUrl={imageIndex}
               explainText={item}
               index={index}
             />
@@ -34,15 +33,12 @@ function DetailMain({ explaincontentList, sequenceImgList }) {
 //   index: number
 // }
 
-        // const imageFileName = `sandwich${imageIndex}.jpeg`
-        // const imagePath = `assets/common/크리스마스/당근라페샌드위치/sandwich/${imageFileName}`
-
 function FoodMakingList({
   sequenseImgUrl,
   explainText,
   index,
 }) {
-  console.log('sequenseImgUrlsequenseImgUrl',sequenseImgUrl)
+  console.log('sequenseImgUrl', sequenseImgUrl)
   return (
     <>
       {sequenseImgUrl ? (
@@ -58,7 +54,8 @@ function FoodMakingList({
               className="w-[25rem] h-[15rem] rounded-2xl"
               // src={sequenseImgUrl}
               // src="../src/assets/common/logo.png"
-              src={`../src/assets/common/크리스마스/당근라페샌드위치/sandwich${sequenseImgUrl}.jpeg`}
+              // src={`../src/assets/common/크리스마스/당근라페샌드위치/sandwich${sequenseImgUrl}.jpeg`}
+              src={sequenseImgUrl}
               alt=""
             />
           </div>

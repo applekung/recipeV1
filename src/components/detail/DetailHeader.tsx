@@ -8,6 +8,8 @@ function DetailHeader({ fetchData }) {
     return null
   }
 
+  console.log('fetchData', fetchData.img)
+
   return (
     <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6">
       <div className="w-2/5 p-6 min-w-[25rem]">
@@ -16,7 +18,9 @@ function DetailHeader({ fetchData }) {
           className="w-full h-[30rem]"
           // 수정 필요
           // src="../src/assets/detail/cake.jpeg"
-          src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}
+          // src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}
+          src={fetchData.img}
+          // src="https://lh3.google.com/u/0/d/1wIHHKzAMpOqm6vHVebqBu_oAYq0-oKL8=w2880-h1392-iv1"
           alt=""
         />
       </div>
