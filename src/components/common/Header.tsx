@@ -74,7 +74,7 @@ function Header() {
   }
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
-  const { getAccessToken, accessToken } = useStore() // Destructure getAccessToken from your store
+  const { getAccessToken, accessToken, clearToken } = useStore() // Destructure getAccessToken from your store
   const token = getAccessToken()
   // const { administration } = useUserStore()
   const navigate = useNavigate()
@@ -82,7 +82,7 @@ function Header() {
   const mypageIconClick = () => {
     if (accessToken) {
       // 토큰이 존재하면 로그인된 상태로 간주
-      navigate('/search') //마이페이지로 주소변경 필요
+      navigate('/my') //마이페이지로 주소변경 필요
       console.log('회원-로그인화면 이동')
     } else {
       navigate('/Login') //주소변경 필요
@@ -99,6 +99,31 @@ function Header() {
       navigate('/Login')
     }
   }
+
+  // 로그아웃 함수
+  const logout = async () => {
+    try {
+      // 카카오의 사용자 로그아웃 POST 요청
+      const response = await axios.post(
+        'https://kapi.kakao.com/v1/user/logout',
+        null,  // 요청 본문 x
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+  
+      toast.success('로그아웃에 성공했습니다.')
+  
+      clearToken();
+
+    } catch (error) {
+      toast.error('로그아웃에 실패했습니다.')
+    }
+  };
+  
 
   //검색바 스크롤
   const [isVisible, setIsVisible] = useState(true)
@@ -253,8 +278,8 @@ function Header() {
                 <Link to="/" className="block px-3 py-1 ">
                   마이페이지
                 </Link>
-                <Link to="/" className="block px-4 py-1 ">
-                  로그아웃
+                <Link to="/"> <button onClick={logout} className="block px-4 py-1">
+                  로그아웃</button>
                 </Link>
               </div>
             )}

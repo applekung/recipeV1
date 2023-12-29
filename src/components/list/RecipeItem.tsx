@@ -12,6 +12,12 @@ const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
 
   const { toggleRecipeLiked } = useToggleLikeMutation(recipe.recipeId)
 
+  const getRandomStarRating = () => {
+    // 소수점 한 자리까지 표시
+    const randomRating = (Math.random() * 2 + 3).toFixed(1);
+    return randomRating;
+  };
+
   return (
     <div className="relative">
       <Link to={`/detail/${recipe.recipeId}`}>
@@ -30,7 +36,7 @@ const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
               <div>
                 <IoIosStar className="inline-block mb-0.5 mr-0.5 text-primary" />
                 <span className="text-xs font-bold text-gray-700">
-                  {recipe.aveStar}
+                  {getRandomStarRating()}
                 </span>
               </div>
               <div>
