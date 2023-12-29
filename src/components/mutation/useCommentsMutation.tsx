@@ -84,12 +84,8 @@ export const useUpdateCommentMutation = () => {
     Error,
     Comment
   >({
-    mutationFn: (updatedComment: Comment) => fetchPostComment(updatedComment),
+    mutationFn: (updatedComment: Comment) => fetchPostComment('update'),
     onMutate: async (updatedComment: Comment) => {
-      if (!updatedComment || !updatedComment.reviewId) {
-        throw new Error('Invalid comment data provided for update.')
-      }
-
       await queryClient.cancelQueries({ queryKey: ['comments'] })
       const previousComments = queryClient.getQueriesData<Comment[]>([
         'comments',
