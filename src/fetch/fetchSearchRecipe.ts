@@ -17,7 +17,7 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
       apiRes = await axios.get(
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
       )
-      return apiRes.data.filter((recipe) => recipe.name.includes(keyword))
+      return apiRes.data.filter((recipe) => recipe.recipeName.includes(keyword))
     }
 
     return apiRes.data
