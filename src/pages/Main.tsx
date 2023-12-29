@@ -23,14 +23,14 @@ function Main() {
           이달의 인기 레시피 {'>'}
         </span>
       </Link>
-      <RankItem />
+      <RankItem topic={'테스트'} />
       <Link to="/category/해산물">
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
           바다를 품은 레시피 {'>'}
         </span>
       </Link>
-      <RankItem />
+      <RankItem topic={'해산물'} />
     </div>
   )
 }

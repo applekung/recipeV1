@@ -9,21 +9,21 @@ import useIntersect from '../../components/list/useIntersect'
 import { useQuery } from '@tanstack/react-query'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
 
-function RankItem() {
+function RankItem({ topic }: { topic: string }) {
   const [page, setPage] = useState(1)
   const items = 4
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
-  const category = '디저트'
+  const keyword = topic
 
   const { data, isLoading, isError } = useQuery<RecipeCard[]>({
-    queryKey: ['search', { category, items, page }],
+    queryKey: ['search', { keyword, items, page }],
     queryFn: fetchSearchRecipe,
-    enabled: !!category,
+    enabled: !!keyword,
   })
 
   useEffect(() => {
-    if (data) setRecipes([...data])
-  }, [data, category])
+    if (data) setRecipes(data.slice(0, 4))
+  }, [data, keyword])
 
   return (
     <div className="flex flex-col items-center mb-24">
@@ -33,7 +33,7 @@ function RankItem() {
             <RecipeItem key={recipe.recipeId} recipe={recipe} />
           ))
         ) : (
-          <div>"{category}"카테고리 인기레시피 4개</div>
+          <div>"{keyword}" 인기레시피 4개</div>
         )}
       </div>
     </div>
