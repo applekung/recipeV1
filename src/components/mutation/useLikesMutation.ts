@@ -8,7 +8,7 @@ import {
 import { useStore, StoreState } from '../store/store'
 
 export const useDeleteLikesMutation = (
-  checkedItems: string[],
+  checkedItems: number[],
   setCheckedItems: React.Dispatch<React.SetStateAction<string[]>>,
 ) => {
   const { toggleLikedRecipe }: StoreState = useStore()
@@ -42,6 +42,7 @@ export const useDeleteLikeMutation = (id: number) => {
   >({
     mutationFn: (id: number) => fetchDeleteLike(id),
     onMutate: (id: number) => {
+      console.log(id)
       toggleLikedRecipe(id)
     },
     onSuccess: () => {

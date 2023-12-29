@@ -24,14 +24,13 @@ const WriteComment = () => {
       return
     }
 
-    postComment({ name: 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ', postId: 5 })
+    postComment({ comment: commentContent, star: selectedRating })
     setSelectedRating(0)
     setCommentContent('')
   }
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <div className="flex">
-        {/* <label htmlFor="starRating">별점: </label> */}
         <StarRating
           selectedRating={selectedRating}
           onRatingChange={handleRatingChange}

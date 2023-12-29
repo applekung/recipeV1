@@ -46,10 +46,7 @@ const NicknameEdit = () => {
   }
 
   return (
-    <div className="">
-      <div className="text-2xl font-bold flex justify-center mt-20">
-        회원 정보 수정
-      </div>
+    <div className="w-full">
       <div className="border-t mt-4 pt-4 flex flex-col items-center justify-center h-screen mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">닉네임 변경</h1>
         <form onSubmit={handleIdSubmit} className="max-w-md">

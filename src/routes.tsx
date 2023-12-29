@@ -10,7 +10,7 @@ import Callback from './pages/user/callBack'
 import UploadRecipe from './pages/UploadRecipe'
 // import Signup from './pages/user/Signup'
 import LikedRecipes from './pages/myPage/LikedRecipes'
-import MyComments from './pages/myPage/myComments'
+import MyRecipes from './pages/myPage/MyRecipes'
 import DeleteUser from './pages/user/deleteUser'
 import Mypage from './pages/myPage/Mypage'
 import ModifyRecipe from './pages/ModifyPage'
@@ -25,7 +25,7 @@ export const AppRoutes = () => {
         <Route path="/" element={<Main />} />
         <Route path="/my" element={<Mypage />}>
           <Route index element={<NicknameEdit />} />
-          <Route path="/my/myComments" element={<MyComments />} />
+          <Route path="/my/myRecipes" element={<MyRecipes />} />
           <Route path="/my/liked" element={<LikedRecipes />} />
         </Route>
         <Route path="/detail/:recipeId" element={<Detail />} />

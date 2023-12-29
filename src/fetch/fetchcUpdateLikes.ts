@@ -19,7 +19,7 @@ export const fetchDeleteLike = async (recipeId: number): Promise<void> => {
   }
 }
 
-export const fetchDeleteLikes = async (recipeIds: string[]): Promise<void> => {
+export const fetchDeleteLikes = async (recipeIds: number[]): Promise<void> => {
   try {
     const recipePromises = recipeIds.map((id) => fetchDeleteLike(id))
     await Promise.all(recipePromises)

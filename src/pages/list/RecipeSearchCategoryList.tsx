@@ -23,7 +23,6 @@ function RecipeSearchCategoryList() {
     if (!category) {
       throw new Error('검색어를 입력해주세요')
     }
-    setRecipes([])
     setPage(1)
   }, [category])
 
@@ -37,8 +36,6 @@ function RecipeSearchCategoryList() {
       `${category}에 대한 레시피 데이터 로드중 문제가 발생했습니다`,
     )
   }
-
-  // const recipeList = data?.recipe
 
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -60,23 +57,28 @@ function RecipeSearchCategoryList() {
     },
     { threshold: 0.5 },
   )
-  const fakeloading = false
   return (
-    <div className="p-8 w-full flex flex-col items-center">
-      {fakeloading ? (
-        <LoadingSpinner />
-      ) : (
-        <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
-          {recipes.length ? (
-            recipes.map((recipe) => (
-              <RecipeItem key={recipe.recipeId} recipe={recipe} />
-            ))
-          ) : (
-            <div>"{category}" 검색 결과가 없습니다</div>
-          )}
-          <div ref={intersectRef} className="h-20 w-full bg-transparent"></div>
-        </div>
-      )}
+    <div className="ml-20">
+      {category} 카테고리 검색 결과({recipes.length})
+      <div className="p-8 w-full flex flex-col items-center">
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
+            {recipes.length ? (
+              recipes.map((recipe) => (
+                <RecipeItem key={recipe.recipeId} recipe={recipe} />
+              ))
+            ) : (
+              <div>"{category}" 검색 결과가 없습니다</div>
+            )}
+            <div
+              ref={intersectRef}
+              className="h-20 w-full bg-transparent"
+            ></div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

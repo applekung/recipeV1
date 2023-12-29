@@ -6,7 +6,6 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
   const { category, items, page } = queryKey[1]
 
   try {
-    // 카테고리가 있으면 카테고리 키워드가 있으면 키워드
     let apiRes
 
     if (category) {

@@ -14,7 +14,7 @@ const Comment = () => {
   })
 
   useEffect(() => {
-    if (!isLoading && data && data?.length) {
+    if (!isLoading && data) {
       setCommentList(data)
     }
   }, [isLoading, data])
@@ -22,7 +22,7 @@ const Comment = () => {
   return (
     <div className="w-3/5">
       <WriteComment />
-      {commentList.map((comment) => (
+      {commentList?.map((comment) => (
         <div key={comment.reviewId} className="w-full">
           <CommentItem review={comment} />
         </div>

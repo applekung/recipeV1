@@ -1,6 +1,7 @@
 import { access } from 'fs/promises'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import LikedRecipes from '../../pages/myPage/LikedRecipes'
 
 export interface StoreState {
   likedRecipes: number[]
@@ -10,6 +11,7 @@ export interface StoreState {
   setAccessToken: (token: string | null) => void
   getAccessToken: () => string | null
   clearToken: () => void
+  clearLikedRecipe: () => void
 }
 
 export const useStore = create<StoreState>()(
@@ -17,6 +19,9 @@ export const useStore = create<StoreState>()(
     persist(
       (set, get) => ({
         likedRecipes: [],
+        clearLikedRecipe: () => {
+          set((state) => ({ likedRecipes: [] }))
+        },
         isLiked: (recipeId: number) =>
           get().likedRecipes.includes(recipeId) ? true : false,
         toggleLikedRecipe: (recipeId: number) =>
@@ -38,7 +43,10 @@ export const useStore = create<StoreState>()(
         },
         getAccessToken: () => get().accessToken,
       }),
-      { name: 'store' },
+      {
+        name: 'mystore',
+        getStorage: () => localStorage,
+      },
     ),
   ),
 )

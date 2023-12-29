@@ -2,11 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
-import fetchTestGet from '../../fetch/fetchTestGet'
-import {
-  ListBySearchAPIResponse,
-  RecipeCard,
-} from '../../fetch/APIResponsesTypes'
+import { RecipeCard } from '../../fetch/APIResponsesTypes'
 import RecipeItem from '../../components/list/RecipeItem'
 import useIntersect from '../../components/list/useIntersect'
 import ErrorBoundary from '../../components/error/ErrorBoundary'
@@ -24,7 +20,6 @@ function RecipeSearchList() {
     if (!keyword) {
       throw new Error('검색어를 입력해주세요')
     }
-    setRecipes([])
     setPage(1)
   }, [keyword])
 
@@ -38,8 +33,6 @@ function RecipeSearchList() {
       `${keyword}에 대한 레시피 데이터 로드중 문제가 발생했습니다`,
     )
   }
-
-  // const recipeList = data?.recipe
 
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -61,12 +54,11 @@ function RecipeSearchList() {
     },
     { threshold: 0.5 },
   )
-  const fakeloading = false
+
   return (
-    <div className="p-8 w-full flex flex-col items-center">
-      {fakeloading ? (
-        <LoadingSpinner />
-      ) : (
+    <div className="ml-20">
+      "{keyword}"에 대한 검색 결과({recipes.length})
+      <div className="p-8 w-full flex flex-col items-center">
         <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
           {recipes.length ? (
             recipes.map((recipe) => (
@@ -77,7 +69,7 @@ function RecipeSearchList() {
           )}
           <div ref={intersectRef} className="h-20 w-full bg-transparent"></div>
         </div>
-      )}
+      </div>
     </div>
   )
 }

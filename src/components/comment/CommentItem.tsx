@@ -37,8 +37,9 @@ const CommentItem = ({ review }: { review: Comment }) => {
     event.preventDefault()
     const updatedComment = {
       ...review,
-      name: commentContent,
-      reviewId: selectedRating,
+      comment: commentContent,
+      reviewId: review.reviewId,
+      star: selectedRating,
     }
     updateComment(updatedComment)
     setCommentContent('')
@@ -51,7 +52,6 @@ const CommentItem = ({ review }: { review: Comment }) => {
       {isEditing ? (
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-2">
           <div className="flex">
-            {/* <label htmlFor="starRating">별점: </label> */}
             <StarRating
               selectedRating={selectedRating}
               onRatingChange={handleRatingChange}

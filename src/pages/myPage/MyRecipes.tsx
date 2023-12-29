@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { fetchRecipeListById } from '../../fetch/fetchRecipeLiked'
-import { useStore, StoreState } from '../../components/store/store'
-import LikedRecipeItem from '../../components/myPage/MypageRecipeItem'
-import { RecipeCard } from '../../fetch/APIResponsesTypes'
-import { TbMinusVertical } from 'react-icons/tb'
-import { useDeleteLikesMutation } from '../../components/mutation/useLikesMutation'
 import { useQuery } from '@tanstack/react-query'
+import { RecipeCard } from '../../fetch/APIResponsesTypes'
+import fetchMyRecipe from '../../fetch/fetchMyRecipes'
+import { TbMinusVertical } from 'react-icons/tb'
+import MypageRecipeItem from '../../components/myPage/MypageRecipeItem'
+import {
+  useDeleteRecipeMutation,
+  useDeleteRecipesMutation,
+} from '../../components/mutation/useMyRecipesMutation'
 
-const LikedRecipes = () => {
-  const { likedRecipes }: StoreState = useStore()
+function MyRecipes() {
+  const userId = 1
   const [recipeList, setRecipeList] = useState<RecipeCard[]>([])
   const [checkedItems, setCheckedItems] = useState<number[]>([])
-  const { deleteRecipes, isDeleting } = useDeleteLikesMutation(
-    checkedItems,
-    setCheckedItems,
-  )
 
   useEffect(
     () => () => {
@@ -24,32 +22,41 @@ const LikedRecipes = () => {
   )
 
   const { data, isLoading, isError } = useQuery<RecipeCard[]>({
-    queryKey: ['likedRecipes', likedRecipes],
-    queryFn: fetchRecipeListById,
+    queryKey: ['myRecipes'],
+    // 유저 아이디는 fetchFn에서 store에서
+    queryFn: fetchMyRecipe,
   })
 
+  const { deleteRecipes, isDeleting } = useDeleteRecipesMutation(
+    checkedItems,
+    setCheckedItems,
+  )
+
+  if (isError) {
+    throw new Error('나의 레시피 목록을 불러오는 중 오류가 발생했습니다.')
+  }
+
   useEffect(() => {
-    if (data) {
+    if (!isLoading && data && data?.length) {
       setRecipeList(data)
     }
-  }, [data])
+  }, [isLoading, data])
 
-  const handleSingleCheck = (checked, recipeId: string) => {
+  const handleSingleCheck = (checked, recipeId: number) => {
     setCheckedItems((prevCheckedItems) => {
       if (checked) {
         return [...prevCheckedItems, recipeId]
-      } else {
-        return prevCheckedItems.filter((id) => id !== recipeId)
       }
+      return prevCheckedItems.filter((id) => id !== recipeId)
     })
   }
 
   const handleAllCheck = (checked) => {
     if (checked) {
-      setCheckedItems(likedRecipes)
-    } else {
-      setCheckedItems([])
+      setCheckedItems(recipeList.map((recipe) => recipe.recipeId))
+      return
     }
+    setCheckedItems([])
   }
 
   const handelDelete = () => {
@@ -57,15 +64,17 @@ const LikedRecipes = () => {
   }
 
   return (
-    <div>
-      <h2 className="text-lg font-bold">찜한레시피({recipeList.length})</h2>
+    <div className="w-full">
+      <h2 className="text-lg font-bold">
+        내가 작성한 레시피({recipeList.length})
+      </h2>
       <div className="flex flex-col justify-center w-full">
         <div>
           <input
             type="checkbox"
-            checked={checkedItems.length === likedRecipes.length}
+            checked={checkedItems.length === recipeList.length}
             onChange={(e) => handleAllCheck(e.target.checked)}
-            disabled={likedRecipes.length === 0}
+            disabled={recipeList.length === 0}
           />
           <span className="text-gray-900 font-semibold ml-2">전체선택</span>
           <TbMinusVertical className="text-gray-400 my-5 -ml-2 inline text-[1.5rem]" />
@@ -89,7 +98,7 @@ const LikedRecipes = () => {
                   }
                 />
                 <div className="ml-3 my-3">
-                  <LikedRecipeItem recipe={recipe} />
+                  <MypageRecipeItem recipe={recipe} />
                 </div>
               </div>
             ))
@@ -102,4 +111,4 @@ const LikedRecipes = () => {
   )
 }
 
-export default LikedRecipes
+export default MyRecipes
