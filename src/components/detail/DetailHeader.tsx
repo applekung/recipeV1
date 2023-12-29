@@ -27,7 +27,7 @@ function DetailHeader({ fetchData }) {
       <div className="w-3/5">
         <div className="w-full m-4">
           <div className="flex justify-between">
-            <div className="text-2xl font-bold pl-10">
+            <div className="text-2xl ml-5 font-bold pl-10">
               {fetchData.recipeName}
             </div>
             <div className="flex justify-center items-center p-2">
