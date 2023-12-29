@@ -47,7 +47,6 @@ function Detail() {
   //   }
   // }
 
-
   // console.log('ingredientCategoryList', ingredientCategoryList)
 
   // const [inputValue, setInputValue] = useState<string>('')
@@ -187,7 +186,7 @@ function Detail() {
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
-        <Comment />
+        <Comment recipeId={recipeId} />
       </div>
     </div>
   )

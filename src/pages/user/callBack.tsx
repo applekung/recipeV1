@@ -12,7 +12,7 @@ const Callback = () => {
   useEffect(() => {
     const sendAuthorizationCodeToServer = async (code: string) => {
       try {
-          const response = await axios.post(
+        const response = await axios.post(
           'https://kauth.kakao.com/oauth/token',
           {
             grant_type: 'authorization_code',
@@ -28,7 +28,7 @@ const Callback = () => {
         )
         // 토큰 스토어에서 받은 토큰 설정
         setAccessToken(response.data.access_token)
-        toast.success('로그인에 성공했습니다.');
+        toast.success('로그인에 성공했습니다.')
         navigate('/')
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
@@ -40,8 +40,8 @@ const Callback = () => {
     const authorizationCode = new URLSearchParams(location.search).get('code')
 
     if (authorizationCode) {
-      sendAuthorizationCodeToServer(authorizationCode);
-     // console.log('인가 코드:', authorizationCode);
+      sendAuthorizationCodeToServer(authorizationCode)
+      // console.log('인가 코드:', authorizationCode);
     } else {
       console.error('인가 코드를 찾을 수 없음')
     }
@@ -49,7 +49,6 @@ const Callback = () => {
 
   return (
     <div>
-      
       <div></div>
     </div>
   )

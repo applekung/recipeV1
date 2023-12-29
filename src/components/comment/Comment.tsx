@@ -5,11 +5,11 @@ import { useQuery } from '@tanstack/react-query'
 import fetchTestComment from '../../fetch/fetchMyComment'
 import CommentItem from './CommentItem'
 
-const Comment = () => {
+const Comment = ({ recipeId }: { recipeId: number }) => {
   const [commentList, setCommentList] = useState<Comment[]>([])
 
   const { data, isLoading, isError } = useQuery<Comment[]>({
-    queryKey: ['comments'],
+    queryKey: ['comments', { recipeId }],
     queryFn: fetchTestComment,
   })
 
