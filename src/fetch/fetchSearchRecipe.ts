@@ -5,16 +5,21 @@ import { QueryFunction } from '@tanstack/react-query'
 const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
   const { category, items, page, keyword } = queryKey[1]
 
+  console.log('category', category)
+
   try {
     const categoryApiRes = await axios.get(
       'http://kdt-sw-7-team06.elicecoding.com:3000/categorys',
     )
-    categoryApiRes.data.filter((item) => {
-      item.categoryName.indexOf(category) !== -1
-    })
-    return categoryApiRes.data.filter((item) => {
-      item.categoryName.indexOf(category) !== -1
-    })
+    return categoryApiRes.data.filter(
+      (item) => item.categoryName.indexOf(category) !== -1,
+    )
+    // categoryApiRes.data.filter((item) => {
+    //   item.categoryName.indexOf(category) !== -1
+    // })
+    // return categoryApiRes.data.filter((item) => {
+    //   item.categoryName.indexOf(category) !== -1
+    // })
   } catch (e) {
     console.log('category api get error', e)
   }
@@ -24,9 +29,7 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
 
     if (category) {
       apiRes = await axios.get(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${
-          categoryApiRes().categoryId
-        }`,
+        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${categoryApiRes.categoryId}`,
         // `http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys/${category}`,
       )
       // return apiRes.data.recipes
@@ -51,3 +54,6 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
 }
 
 export default fetchSearchRecipe
+function categoryApiRes() {
+  throw new Error('Function not implemented.')
+}
