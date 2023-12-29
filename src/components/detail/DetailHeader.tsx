@@ -2,21 +2,17 @@ import React from 'react'
 import { FaRegClock } from 'react-icons/fa6'
 import { IoIosPeople } from 'react-icons/io'
 import { TbStarsFilled } from 'react-icons/tb'
+import {dummyData} from '../../../public/dummy'
 
-function DetailHeader({ fetchData }) {
-  if (!fetchData) {
-    return null
-  }
-
+function DetailHeader() {
   return (
-    <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6">
+    <div className="flex flex-wrap items-center justify-center min-w-[50rem]">
       <div className="w-2/5 p-6 min-w-[25rem]">
         {/* 서버에서 이미지 받아오기 */}
         <img
           className="w-full h-[30rem]"
           // 수정 필요
-          // src="../src/assets/detail/cake.jpeg"
-          src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}
+          src="../src/assets/detail/cake.jpeg"
           alt=""
         />
       </div>
@@ -24,7 +20,7 @@ function DetailHeader({ fetchData }) {
         <div className="w-full">
           <div className="flex justify-between">
             <div className="text-2xl font-bold">
-              요리명 : {fetchData.recipeName}
+              요리명 : {dummyData.recipeName}
             </div>
             <div className="flex justify-center items-center p-2">
               <img
@@ -32,7 +28,7 @@ function DetailHeader({ fetchData }) {
                 src="./src/assets/detail/다운로드.png"
                 alt=""
               />
-              <h4 className="p-1">{fetchData.Like}</h4>
+              <h4 className="p-1">{dummyData.Like}</h4>
             </div>
           </div>
 
@@ -42,7 +38,7 @@ function DetailHeader({ fetchData }) {
                 <IoIosPeople style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
-                {fetchData.portion}
+                {dummyData.portion}
               </p>
             </div>
             <div className="flex items-center flex-col">
@@ -50,7 +46,7 @@ function DetailHeader({ fetchData }) {
                 <FaRegClock style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
-                {fetchData.leadTime}
+                {dummyData.leadTime}
               </p>
             </div>
             <div className="flex items-center flex-col">
@@ -58,7 +54,7 @@ function DetailHeader({ fetchData }) {
                 <TbStarsFilled style={{ height: 30 }} />
               </div>
               <p className="text-xs text-slate-500 font-bold">
-                {fetchData.level}
+                {dummyData.level}
               </p>
             </div>
           </div>
@@ -67,14 +63,14 @@ function DetailHeader({ fetchData }) {
         <div className="py-2">
           <p className="text-1xl py-4 font-extrabold">
             재료 및 분량{' '}
-            <span className="text-orange-600">{fetchData.portion}</span>
+            <span className="text-orange-600">{dummyData.portion}</span>
           </p>
           <div className="h-[14rem] bg-gray-100 p-7 font-medium">
             <div className="flex w-full">
-              {fetchData?.ingredient?.map((item, index) => {
+              {dummyData.ingredient.map((item, index) => {
                 return (
                   <div key={index} className="p-2">
-                    {item.item} {item.unit}
+                    {item}
                   </div>
                 )
               })}

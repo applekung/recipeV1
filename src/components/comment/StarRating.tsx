@@ -4,13 +4,11 @@ import { FaStar } from 'react-icons/fa'
 interface StarRatingProps {
   selectedRating: number
   onRatingChange: (rating: number) => void
-  readOnly: boolean
 }
 
 const StarRating = ({
   selectedRating,
   onRatingChange,
-  readOnly,
 }: StarRatingProps): ReactElement => {
   const [hoveredRating, setHoveredRating] = useState<number>(0)
   const totalStars = 5
@@ -39,15 +37,11 @@ const StarRating = ({
           onClick={() => handleClick(i + 1)}
           onMouseEnter={() => handleHover(i + 1)}
           onMouseLeave={resetHover}
-          className={`relative ml-auto text-lg ${
-            isFilled || (!readOnly && isHovered)
-              ? 'text-yellow-500'
-              : 'text-gray-400'
-          } ${
-            isHovered && !readOnly
-              ? 'transform scale-110'
-              : 'transform scale-100'
-          } ${!readOnly ? 'cursor-pointer' : ''}`}
+          style={{
+            color: isFilled || isHovered ? '#ffc107' : '#e4e5e9',
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+            cursor: 'pointer',
+          }}
         />,
       )
     }
