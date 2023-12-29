@@ -37,7 +37,7 @@
 
 .main-imgUpload-btn-box {
   width: 400px;
-  height: 200px;
+  height: 250px;
   background: url('../../../src/assets/uploadRecipe/uploadMainfoodimg.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -90,7 +90,6 @@
   justify-content: space-between;
 }
 
-
 .info-box {
   display: flex;
   min-width: 100px;
@@ -103,7 +102,7 @@
   width: 80px;
   margin: 10px;
 
-    border: 1px solid rgb(200, 200, 200);
+  border: 1px solid rgb(200, 200, 200);
   padding: 7px;
   background-color: rgb(240, 240, 240);
 }

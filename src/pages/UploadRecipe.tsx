@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategorList } from '../../public/dummy'
+import { realCategoryList } from '../../public/dummy'
 import axios from 'axios'
-import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
-import { Link } from 'react-router-dom'
+// import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function UploadRecipe() {
-  const ingredientCategoryTitle = dummyCategorList[0].name
-  const situationCategoryTitle = dummyCategorList[1].name
-  const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
-    .children
-  const situationCategory = dummyCategorList.filter((item) => item.id === 2)[0]
-    .children
+  const ingredientCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('재료별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+
+  const situationCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('상황별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
 
   interface Ingredient {
     item: string
@@ -25,7 +34,7 @@ function UploadRecipe() {
 
   const [recipeName, setRecipeName] = useState<String>('')
   const [recipeMainImg, setRecipeMainImg] = useState<String>('')
-  const [portion, setPortion] = useState<Number>( )
+  const [portion, setPortion] = useState<Number>()
   const [leadTime, setLeadTime] = useState<Number>()
   const [level, setLevel] = useState<Number>()
   const [ingredients, setIngredients] = useState<Ingredient[]>([
@@ -72,7 +81,6 @@ function UploadRecipe() {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
-    console.log('ingredient', ingredients)
   }
 
   const addIngredient = () => {
@@ -83,6 +91,7 @@ function UploadRecipe() {
     return {
       recipeName: recipeName,
       img: recipeMainImg,
+      // img: 'asdasd',
       portion: portion,
       leadTime: leadTime,
       setCgIngredient: categoryIg,
@@ -94,35 +103,27 @@ function UploadRecipe() {
     }
   }
 
+
+
+  const { recipeId } = useParams()
+
   const submit = async () => {
     try {
       const recipeData = createRecipeData()
-      const formData = new FormData()
-      formData.append('recipeName', recipeName)
-      formData.append('img', recipeMainImg)
-      formData.append('portion', portion)
-      formData.append('portion', portion)
-      formData.append('leadTime', leadTime)
-      formData.append('setCgIngredient', categoryIg)
-      formData.append('setCgSituation', categorySt)
-      formData.append('level', level)
-      formData.append('ingredient', JSON.stringify(ingredients))
-      formData.append('step', JSON.stringify(recipeSequenceItems))
-
       await axios.post(
-        // 'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
-        'https://jsonplaceholder.typicode.com/posts',
-        formData,
+        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
+        recipeData,
       )
-      console.log('success, json data', recipeData)
-      console.log('success, form Data', formData)
+      console.log('레시피 등록 성공!', recipeData)
       console.log('전송 성공')
     } catch (e) {
-      // const recipeData = createRecipeData()
-      console.log('fail, Data', formData)
+      const recipeData = createRecipeData()
+      console.log('전송 대 실패', recipeData)
       console.log('error', e)
     }
   }
+  console.log('esradsasdasd', recipeId)
+  // console.log('window.location.href', window.location)
 
   return (
     <>
@@ -181,9 +182,9 @@ function UploadRecipe() {
                 setCategoryIg(e.target.value)
               }}
             >
-              <option value="none">{ingredientCategoryTitle}</option>
-              {ingredientCategory.map((item) => {
-                return <option value={item.name}>{item.name}</option>
+              <option value="none">재료별</option>
+              {ingredientCategoryList.map((item) => {
+                return <option value={item}>{item}</option>
               })}
             </select>
             <select
@@ -192,9 +193,9 @@ function UploadRecipe() {
                 setCategorySt(e.target.value)
               }}
             >
-              <option value="none">{situationCategoryTitle}</option>
-              {situationCategory.map((item) => {
-                return <option value={item.name}>{item.name}</option>
+              <option value="none">상황별</option>
+              {situationCategoryList.map((item) => {
+                return <option value={item}>{item}</option>
               })}
             </select>
           </div>
@@ -305,8 +306,15 @@ function UploadRecipe() {
                         className="add-sequence-item-img-input"
                         type="file"
                         accept="image/*"
-                        onChange={(e) =>
-                          handleStepChange(index, 'imgUrl', e.target.files[0])
+                        onChange={
+                          (e) =>
+                            // file로 입력
+                            handleStepChange(
+                              index,
+                              'imgUrl',
+                              URL.createObjectURL(e.target.files[0]),
+                            )
+                          // handleStepChange(index, 'imgUrl', 'ㅇㅇㅇ')
                         }
                       />
                       {item.imgUrl === '' && (
@@ -319,7 +327,7 @@ function UploadRecipe() {
                       )}
                       {item.imgUrl && (
                         <img
-                          src={URL.createObjectURL(item.imgUrl)}
+                          src={item.imgUrl}
                           alt={`Step ${item.stepNum}`}
                           className="recipe-step-image"
                         />
