@@ -2,31 +2,55 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
-import { RecipeCard } from '../../fetch/APIResponsesTypes'
+import fetchTestGet from '../../fetch/fetchTestGet'
+import {
+  ListBySearchAPIResponse,
+  RecipeCard,
+} from '../../fetch/APIResponsesTypes'
 import RecipeItem from '../../components/list/RecipeItem'
 import useIntersect from '../../components/list/useIntersect'
 import ErrorBoundary from '../../components/error/ErrorBoundary'
 import LoadingSpinner from '../../components/common/LoadingSpinner'
-import { useStore, StoreState } from '../../components/store/store'
+import { useStore, LikedState } from '../../components/store/store'
 
 function RecipeSearchList() {
-  const { keyword } = useParams<{ keyword: string }>()
+  // const { keyword } = useParams<{ keyword: string }>()
+
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
-  const { likedRecipes, toggleLikedRecipe }: StoreState = useStore()
+  const [test, setTests] = useState<string[]>([])
+  const keyword = '피자'
+
+  const { likedRecipes, toggleLikedRecipe }: LikedState = useStore((state) => ({
+    likedRecipes: state.likedRecipes,
+    toggleLikedRecipe: state.toggleLikedRecipe,
+  }))
 
   useEffect(() => {
     if (!keyword) {
       throw new Error('검색어를 입력해주세요')
     }
+    setRecipes([])
     setPage(1)
   }, [keyword])
 
-  const { data, isLoading, isError } = useQuery<RecipeCard[]>({
-    queryKey: ['search', { items, page, keyword }],
-    queryFn: fetchSearchRecipe,
+  useEffect(
+    () => () => {
+      setRecipes([])
+    },
+    [],
+  )
+
+  const { data, isLoading, isError } = useQuery<string>({
+    queryKey: ['search', { keyword, items, page }],
+    queryFn: fetchTestGet,
+    enabled: !!keyword,
   })
+  // const { data, isLoading, isError } = useQuery<ListBySearchAPIResponse>({
+  //   queryKey: ['search', { keyword, items, page }],
+  //   queryFn: fetchSearchRecipe,
+  // })
 
   if (isError) {
     throw new Error(
@@ -34,11 +58,14 @@ function RecipeSearchList() {
     )
   }
 
+  // const recipeList = data?.recipe
+  // const testList = data
+
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   useEffect(() => {
     if (!isLoading && !isError && data && data?.length) {
-      setRecipes((prev) => [...prev, ...data])
+      setTests((prev) => [...prev, ...data])
       setIsLoadingMore(false)
     }
   }, [isLoading, isError, data])
@@ -54,22 +81,45 @@ function RecipeSearchList() {
     },
     { threshold: 0.5 },
   )
-    console.log("test",recipes)
+  const tt = false
   return (
-    <div className="ml-20">
-      "{keyword}" 검색 결과({recipes.length})
-      <div className="p-8 w-full flex flex-col items-center">
+    <div className="p-8 w-full flex flex-col items-center">
+      {tt ? (
+        <LoadingSpinner />
+      ) : (
         <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
-          {recipes.length ? (
-            recipes.map((recipe) => (
-              <RecipeItem key={recipe.recipeId} recipe={recipe} />
+          {/* recipes.length ? ( {recipes.map( (recipe) => ( */}
+          {/* {[1].length ? (
+            [1, 2, 3, 4, 5, 6].map((recipe, idx) => ( */}
+          {test.length ? (
+            test.map((recipe, idx) => (
+              <RecipeItem
+                key={idx}
+                id={recipe.id}
+                title={recipe.id}
+                image={
+                  'https://cdn.pixabay.com/photo/2022/05/20/08/55/pasta-7209002_640.jpg'
+                }
+                userId={'샐러드요정'}
+                postDate={new Date()}
+                avgRating={1.5}
+                reviewCnt={100}
+                // key={recipe.id}
+                // id={recipe.id}
+                // title={recipe.title}
+                // image={recipe.image}
+                // userId={recipe.userId}
+                // postDate={recipe.postDate}
+                // avgRating={recipe.avgRating}
+                // reviewCnt={recipe.reviewCnt}
+              />
             ))
           ) : (
             <div>"{keyword}" 검색 결과가 없습니다</div>
           )}
           <div ref={intersectRef} className="h-20 w-full bg-transparent"></div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

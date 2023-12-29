@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-export const fetchDeleteComment = async (id: number): Promise<void> => {
+export const fetchDeleteComment = async (commentIds: number): Promise<void> => {
   try {
-    const response = await axios.get(``)
+    const response = await axios.delete(
+      `https://jsonplaceholder.typicode.com/posts/${commentIds}`,
+    )
     return response.data
   } catch (error) {
     throw new Error('댓글 삭제하는 중 오류 발생')

@@ -1,143 +1,96 @@
-import react from 'react'
-import { useState, useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
+import { useState } from 'react'
+import { dummyData, reviewModel } from '../../public/dummy'
 import DetailHeader from '../components/detail/DetailHeader'
 import DetailMainList from '../components/detail/DetailMainList'
+import DetailMainReview from '../components/detail/DetailMainReview'
 import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Comment from '../components/comment/Comment'
-import '../../src/components/uploadRecipe/uploadRecipe.css'
-import { realCategoryList } from '../../public/dummy'
 
 function Detail() {
-  // 방법 1번
-  // const ingredientCategoryList = []
-  // realCategoryList.map((item) => {
-  //   if (item.categoryName?.indexOf("재료별") === 0) {
-  //     ingredientCategoryList.push(item)
-  //   }
-  // })
+  const explaincontentList: string[] = dummyData.sequenceExplain
+  const sequenceImgList: string[] = dummyData.sequenceImg
+  const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
 
-  // console.log('ingredientCategoryList', ingredientCategoryList)
-
-  // const ex = ingredientCategoryList.map((item) => {
-  //   // item.categoryName
-  //   console.log('item.categoryName 하위',item.categoryName)
-  //   return item.categoryName.split("_")[1]
-  // })
-
-  // console.log("ex",ex)
-  // 2번
-  // const ingredientCategoryList = realCategoryList
-  //   .filter((item) => {
-  //     return item.categoryName?.indexOf('재료별') === 0
-  //   })
-  //   .map((item) => {
-  //     return item.categoryName?.split('_')[1]
-  //   })
-
-  // const getCategory = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       'http://kdt-sw-7-team06.elicecoding.com:3000/recipes/1',
-  //     )
-  //     return res.data
-  //   } catch (e) {
-  //     console.log('e', e)
-  //   }
-  // }
-
-
-  // console.log('ingredientCategoryList', ingredientCategoryList)
-
-  // const [inputValue, setInputValue] = useState<string>('')
-  const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
-  const [explaincontentList, setExplaincontentList] = useState<string[]>([])
-  const [sequenceImgList, setSequenceImgList] = useState<string[]>([])
-  const [ingredientNameList, setIngredientNameList] = useState<string[]>([])
-  const [ingredientUnitList, setIngredientUnitList] = useState<string[]>([])
-  const [myBlogContent, setMyBlogContent] = useState(true)
-  const [showOptions, setShowOptions] = useState(false)
-
-  // fetch data 타입 처리 우선적
-
-  interface Step {
-    des: string
-    imgUrl: string
-    stepNum: number
-  }
-
-  interface Ingredient {
-    item: string
-    unit: string
-  }
-
-  interface RecipeDetail {
-    recipeId: number
-    recipeName: string
-    img: string
-    portion: number
-    leadTime: number
-    level: number
-    createdAt: string
-    updatedAt: string
-    deletedAt: string | null
-    ingredient: Ingredient[]
-    step: Step[]
-    reviews: any[]
-  }
-
-  // const { recipeId } = useParams<{ recipeId: string }>()
-    const { recipeId } = useParams()
+  // <Route path="/detail/:itemId" element={<Detail />} />
+  //  item id 값 url에서 읽어오기
+  const { itemId } = useParams()
 
   useEffect(() => {
-    console.log('recipeId', recipeId)
     async function getData() {
-      try {
-        const res = await axios.get(
-          `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
-        )
-        console.log('res data', res.data)
-        setFetchData(res.data)
-        if (res.data && res.data.step) {
-          const step: Step[] = res.data.step
-          const ingredient: Ingredient[] = res.data.ingredient
-          const explainList: string[] = step.map((item) => item.des)
-          const imgList: string[] = step.map((item) => item.imgUrl)
-          const ingNameList: string[] = ingredient.map((item) => item.item)
-          const ingUnitList: string[] = ingredient.map((item) => item.unit)
-          setIngredientNameList(ingNameList)
-          setIngredientUnitList(ingUnitList)
-          setExplaincontentList(explainList)
-          setSequenceImgList(imgList)
-        }
-      } catch (error) {
-        console.error('Error fetching recipe data:', error)
-      }
+      const data = await axios.get(
+        'https://jsonplaceholder.typicode.com/posts?userId=3',
+      )
+      console.log('data', data)
+      // let params = new URL(document.location).searchParams
+      // let name = params.get('name')
     }
-
     getData()
-  }, [recipeId])
+  }, [])
+
+  type ReviewModel = {
+    reviewId: string
+    recipeId: number
+    id: number
+    start: number
+    comment: string
+    time: string
+  }
+
+  const [inputValue, setInputValue] = useState<string>('')
+  const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
+
+  // 본인이 작성한 글이라 가정
+  const [myBlogContent, setMyBlogContent] = useState(true)
+
+  function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value)
+  }
+
+  function addCommentsHandler() {
+    const previousCommentsList = [...comments]
+    const dummyUserComments: ReviewModel = {
+      reviewId: 'ceads',
+      recipeId: 0,
+      id: 1,
+      start: 4,
+      comment: inputValue,
+      time: '하하',
+    }
+    previousCommentsList.push(dummyUserComments)
+    setComments(previousCommentsList)
+    setInputValue('')
+  }
+
+  const [showOptions, setShowOptions] = useState(false)
 
   const handleMoreClick = () => {
     setShowOptions(!showOptions)
   }
 
-  const handleDeleteClick = async () => {
-    try {
-      const res = await axios.delete(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
-      )
-      console.log('레시피 삭제', res)
-    } catch (e) {
-      console.log('삭제 실패', e)
-    }
+  const handleEditClick = () => {
+    // Handle the edit functionality
+    console.log('Edit clicked')
   }
+
+  const handleDeleteClick = () => {
+    // Handle the delete functionality
+    console.log('Delete clicked')
+  }
+
+  async function getDetailData() {
+    const res = await axios.get('/recipe/:recipeId')
+  }
+
+  useEffect(() => {
+    getDetailData()
+  }, [])
 
   return (
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
     // id 를 활용해 레시피와 댓글 가져오기
-
     <div className="flex flex-col items-center justify-center bg-red-400 min-w-[480px]">
       <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center min-w-[800px]">
         <div>
@@ -166,28 +119,51 @@ function Detail() {
               <IoIosMore className="w-10 h-10 cursor-pointer" />
               {showOptions && (
                 <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
-                  <Link to={`/modify/${recipeId}`}>
-                    <button className="block w-full text-left py-1 px-1 hover:bg-gray-100">
-                      수정하기
-                    </button>
-                  </Link>
+                  <button
+                    className="block w-full text-left py-1 px-1 hover:bg-gray-100"
+                    onClick={handleEditClick}
+                  >
+                    Edit
+                  </button>
                   <button
                     className="block w-full text-left py-1 px-1 hover:bg-gray-100 text-red-500"
                     onClick={handleDeleteClick}
                   >
-                    삭제하기
+                    Delete
                   </button>
                 </div>
               )}
             </div>
           </div>
         )}
-        <DetailHeader fetchData={fetchData} />
+        <DetailHeader />
         <DetailMainList
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
         <Comment />
+        {/* <DetailMainReview totalReview={comments} />
+
+        <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
+          <div className="w-[7rem] h-[7rem] flex flex-wrap items-center justify-center text-4xl border-solid border-2 border-black-800">
+            +
+          </div>
+          <div className="w-4/6 h-[7rem] flex items-center justify-center">
+            <input
+              value={inputValue}
+              onChange={getInputValueHandler}
+              className="min-w-[35rem] h-[7rem] border-solid border-2 border-black-600"
+              placeholder="무엇이 궁금하신가요 댓글을 남겨주세요"
+            />
+            <button
+              onClick={addCommentsHandler}
+              className="border-solid w-[7rem] h-[7rem] border-2 border-black-600 p-6"
+            >
+              등록
+            </button>
+          </div>
+        </div>
+         */}
       </div>
     </div>
   )

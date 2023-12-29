@@ -5,28 +5,6 @@ export interface Recipe {
   id: string
 }
 
-export interface Comment {
-  reviewId: number
-  star: number
-  comment: string
-  userId: string
-  deletedAt: null
-  updatedAt: Date
-  createdAt: Date
-}
-
-export interface MyComment {
-  reviewId: number
-  star: number
-  comment: string
-  userId: string
-  deletedAt: null
-  updatedAt: Date
-  createdAt: Date
-  recipeName: string
-  recipeImage: string
-}
-
 // 좋아요한 레시피 임시
 export interface TempRecipe {
   id: number
@@ -34,16 +12,15 @@ export interface TempRecipe {
   body: string
   userId: number
 }
-
 // 레시피 목록의 카드UI에 들어갈 자료
 export interface RecipeCard {
   recipeId: number
   recipeName: string
   image: string
   userId: string
-  createdAt: Date
-  aveStar: number
-  reviews: Array<string>
+  postDate: Date
+  avgRating: number
+  reviewCnt: number
 }
 
 // 키워드로 검색 시

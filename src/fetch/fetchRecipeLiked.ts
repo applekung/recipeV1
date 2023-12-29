@@ -1,24 +1,20 @@
 import axios from 'axios'
-import { RecipeCard } from './APIResponsesTypes'
-import { QueryFunction } from '@tanstack/react-query'
+import { TempRecipe } from './APIResponsesTypes'
 
-const fetchRecipeById = async (recipeId: number): Promise<RecipeCard> => {
+const fetchRecipeById = async (recipeId: string): Promise<TempRecipe> => {
   try {
     const response = await axios.get(
-      `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+      `https://jsonplaceholder.typicode.com/posts/${recipeId}`,
     )
-    console.log('response')
-    console.log(response.data)
     return response.data
   } catch (error) {
     throw new Error('내가 찜한 레시피 불러오는 중 오류 발생')
   }
 }
 
-export const fetchRecipeListById: QueryFunction<RecipeCard[]> = async ({
-  queryKey,
-}) => {
-  const recipeIds = queryKey[1]
+export const fetchRecipeListById = async (
+  recipeIds: string[],
+): Promise<TempRecipe[]> => {
   try {
     const recipePromises = recipeIds.map((id) => fetchRecipeById(id))
     const recipeList = await Promise.all(recipePromises)
