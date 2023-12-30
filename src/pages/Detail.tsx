@@ -100,10 +100,11 @@ function Detail() {
         {myBlogContent && (
           <div className="w-full mt-14">
             <div
-              className="float-right px-10 relative top-5"
+              className="float-right px-5 py-5 relative top-5"
               onClick={handleMoreClick}
             >
-              <IoIosMore className="w-10 h-10 cursor-pointer" />
+              <div className="w-14 h-14 cursor-pointer mr-20">더보기</div>
+              {/* <IoIosMore className="w-10 h-10 cursor-pointer" /> */}
               {showOptions && (
                 <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
                   <Link to={`/modify/${recipeId}`}>

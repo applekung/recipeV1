@@ -268,7 +268,7 @@ function Header() {
             <button className="dropbtn">
               <img
                 className="mr-2"
-                src="./src/assets/ico_user.png"
+                src="https://lh3.google.com/u/0/d/12vZLH_5nIYHgVlTLUvZVPjQ0xKqjCwGM=w1028-h912-iv1"
                 alt=""
                 onClick={mypageIconClick}
               />
@@ -287,7 +287,7 @@ function Header() {
           <button className="dropbtn2">
             <img
               className="mr-1"
-              src="./src/assets/rcp_write.png"
+              src="https://lh3.google.com/u/0/d/1MbdaCOcC1cppV4aKUSeeYKSA2MZ7wNKF=w1028-h912-iv1"
               alt=""
               onClick={writingIconClick}
             />

@@ -9,7 +9,7 @@ function Footer() {
             {/* 로고 */}
             <div className="col-span-2 lg:col-span-1">
               <img
-                src="./src/assets/common/logo.png"
+                src="https://lh3.google.com/u/0/d/1sx5CYydeoylWfPSt1CrwOtWC8-gNcCbl=w1920-h912-iv1"
                 alt="로고"
                 className="w-24 h-auto"
               />
