@@ -284,14 +284,14 @@ function Header() {
               </div>
             )}
           </div>
-          <Link to="uploadrecipe">
+          <button className="dropbtn2">
             <img
               className="mr-1"
               src="/src/assets/rcp_write.png"
               alt=""
               onClick={writingIconClick}
             />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
