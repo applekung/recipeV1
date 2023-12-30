@@ -34,6 +34,7 @@ const NicknameEdit = () => {
 
     // 새로운 닉네임을 로컬 스토리지에 저장하거나 API 호출 수행
     console.log('새로운 닉네임:', newId)
+    toast.success('닉네임이 변경되었습니다.')
 
     // 상태 업데이트 또는 필요한 작업 수행
     setId(newId)

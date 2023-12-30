@@ -275,10 +275,10 @@ function Header() {
             </button>
             {accessToken && (
               <div className="dropdown-content">
-                <Link to="/" className="block px-3 py-1 ">
+                <Link to="/my" className="block px-3 py-1 ">
                   마이페이지
                 </Link>
-                <Link to="/"> <button onClick={logout} className="block px-4 py-1">
+                <Link to="/"> <button onClick={logout} className="block px-3 py-1">
                   로그아웃</button>
                 </Link>
               </div>
