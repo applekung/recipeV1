@@ -170,8 +170,8 @@ function Header() {
           <Link to="/">
             <img
               className="w-40"
-              src="./src/assets/common/logo.png"
-              alt="logo"
+              // src="/src/assets/common/logo.png"
+              src="https://lh3.google.com/u/0/d/1sx5CYydeoylWfPSt1CrwOtWC8-gNcCbl=w1920-h912-iv1" alt="logo"
             />
           </Link>
         </div>
