@@ -17,7 +17,7 @@ const Callback = () => {
           {
             grant_type: 'authorization_code',
             client_id: '8c28dc1b469c8392a5e2773f5cc5dfdb',
-            redirect_uri: `http://localhost:5173/oauth`,
+            redirect_uri: `http://kdt-sw-7-team06.elicecoding.com/oauth`,
             code,
           },
           {
