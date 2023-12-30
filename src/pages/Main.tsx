@@ -11,7 +11,7 @@ function Main() {
       <div className="flex items-center justify-center mt-10 mb-16">
         <Link to='/category/크리스마스'>
           <img
-            src="\src\assets\main\caroucel_1.jpg"
+            src="https://lh3.google.com/u/0/d/14Qu0DAEshBW9WWZ2DVNVjdsoCLtfmMdM=w1028-h912-iv1"
             alt=""
             className="w-[64rem]"
           />

@@ -208,7 +208,7 @@ function Header() {
         {/* navbar 카테고리 */}
         <ul className="navbar items-center flex ml-auto text-lg font-bold">
           <li>
-            <Link to="/">
+            <Link to="/search/모든레시피">
               <span className="mx-7 cursor-pointer">레시피</span>
             </Link>
           </li>
